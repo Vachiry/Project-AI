@@ -1,0 +1,77 @@
+.main-Dashboard {
+    margin-top: 0.2px;
+   
+   
+}
+
+
+.header {
+    padding-top: 12px;
+    background: #fff;
+}
+
+.content {
+    margin: 24px 16px;
+    padding: 20px;
+}
+
+.sider {
+    height: 100vh;
+    position: sticky !important;
+    left: 0;
+    Bottom: 0;
+    top: 0;
+}
+
+.logo {
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin-top: 12px;
+    margin-left: 2px;
+  
+}
+.triger-btn {
+
+    font-size: 16px;
+    width: 50px;
+    height:50px;
+    position: fixed;
+    bottom: 1px;
+    left:10px;
+    color: #fff;
+}
+
+.menu-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-weight: 500;
+    background: #001529;
+   
+  
+}
+
+.ant-menu-item-selected {
+    background-color: #384369 !important;
+    color: #fff !important;
+    
+}
+
+.changeto{
+    color:#fff;
+}
+
+.header-icon {
+    background: #fff;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 20px;
+    color: #001529;
+    cursor:pointer;
+}
+
+.ant-btn::hover {
+    color: blue !important!iblue !important;
+    border-color: blue !important!;
+}
