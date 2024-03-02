@@ -9,27 +9,14 @@ import axios from 'axios';
 function EnterID() {
     const navigate = useNavigate();  
     const Headtext =  "กรุณากรอกหมายเลขไอดีของท่าน";  
-  
-    
+    const [userDetails, setUserDetails] = useState(null);
+    const [user_IDs, setUserIDs] = useState("");
 
-    
-     const [user_ID, setUser_ID] = useState('');  
-    
-   
-   
     function handleSubmit(event)  {
         event.preventDefault();
-     
     }
 
-      function handleChange(event) {
-        const {value, name}= event.target
-        setUser_ID(prevNote => ({
-            ...prevNote, [name] : value})
-        )}
-    
-   
-      const goToHomeScreen = () => {
+    const goToHomeScreen = () => {
         try {
             navigate("/HomeScreen");
         } catch (error) {
@@ -37,33 +24,21 @@ function EnterID() {
             // Handle the error, e.g., show a notification to the user
         }
     }
-
- 
-      const LogInUser = () => {
-        if (user_ID.length  === 0) {
-          alert("Please fill in all required fields!");
-        } else {
-          axios
-            .post('http://127.0.0.1:5000/LoginKiosk', {
-              user_ID : user_ID
-            }, { withCredentials: true })
-            .then(function (response) {
-                console.log(response);                    
-                navigate('/ShowInfo');
-              })
-            .catch(function (error) {
-              console.log(error, 'error');
-              if (error.response && error.response.status === 401) {
-                alert("Invalid credentials");
-              }
-            });
-        }
-      };
+    const handleSearch = async (event) => {
+      event.preventDefault();
+      try {
+        const response = await axios.get(`http://127.0.0.1:5000/Loginusers?user_IDs=${user_IDs}`);
+        setUserDetails(response.data.data);
+        
+      } catch (error) {
+        console.error("Error fetching user details:", error);
+        setUserDetails(null);
+      }
+    };
        
     return(
         <>
             <NavBar/>
-            
             <div className="main-bg-EnterID">
                 <button className="ArrowLeft" onClick={goToHomeScreen} ><GoArrowLeft /></button>
                 <div className =" create">
@@ -71,21 +46,33 @@ function EnterID() {
                     <br/>
                         <center>
                         <form onSubmit={handleSubmit}>
-                            <input type="user_ID" 
-                            className="inputblock "  
-                            value={user_ID}      
-                            onChange={(e) => setUser_ID(e.target.value)}
-                       
-                            style={{width:'615px'}} 
-                            placeholder="กรุณากรอกหมายเลข ID" required />
+                        <input
+                          type="text"
+                          placeholder="Enter user ID"
+                          value={user_IDs}
+                          onChange={(e) => setUserIDs(e.target.value)}
+                        />
 
                        </form>
                         </center>
                        
-                        <Button  onClick={LogInUser}>ถัดไป</Button>
+                        <button onClick={handleSearch}>Search</button>
+
+                        {userDetails && (
+                          <div>
+                            <p>User ID: {userDetails.user_IDs}</p>
+                            <p>Name: {userDetails.user_name}</p>
+                            <p>Surname: {userDetails.user_surname}</p>
+                            <p>Age: {userDetails.user_age}</p>
+                            <p>Sex: {userDetails.user_sex}</p>
+                          </div>
+                        )}
+                        
                     </div>
                 </div>
             </div>
+            
+
             
            
             

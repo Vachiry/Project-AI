@@ -5,16 +5,15 @@ from pymongo import MongoClient
 import json
 from flask_cors import CORS
 import jwt
-from flask_bcrypt import Bcrypt
 import bcrypt
-
+from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
-CORS(app, supports_credentials=True, origins='http://127.0.0.1:5173', methods=['GET', 'POST'], headers=['Content-Type'])
+CORS(app)
 bcrypt = Bcrypt(app)
 
-mongo = MongoClient('mongodb+srv://safe32785:Nongsafe32785@cluster0.gjhysqb.mongodb.net/')
-db = mongo['mydb']
+mongo = MongoClient('mongodb+srv://bigboyzin88:lSktgRehKmm1gzJb@cluster0.blsdxre.mongodb.net/')
+db = mongo['AI_KHIM']
 
 
 @app.route("/")
@@ -32,7 +31,8 @@ def get_users():
     users_data = []
     for user in result:
         users_data.append({
-            'user_id': str(user.get('user_ID')),  # Convert ObjectId to string
+            # 'user_id': str(user.get('user_ID')),  # Convert ObjectId to string
+            'user_IDs': user.get('user_IDs'),
             'user_name': user.get('user_name'),
             'user_surname': user.get('user_surname'),
             'user_age': user.get('user_age'),
@@ -40,6 +40,40 @@ def get_users():
             # Add other fields as needed
         })
     return jsonify({'users': users_data}), 200
+
+
+
+@app.route('/addusers', methods=['POST'])
+def create_user():
+    try:
+        # Accessing the 'users' collection
+        users_collection = db['users']
+
+        # Parsing request data
+        data = request.json
+        user_IDs = data.get('user_IDs')
+        user_name = data.get('user_name')
+        user_surname = data.get('user_surname')
+        user_age = data.get('user_age')
+        user_sex = data.get('user_sex')
+        # Add other fields as needed
+
+        # Inserting new user data into the collection
+        user_data = {
+            'user_IDs' : user_IDs,
+            'user_name': user_name,
+            'user_surname': user_surname,
+            'user_age': user_age,
+            'user_sex': user_sex,
+            # Add other fields as needed
+        }
+        result = users_collection.insert_one(user_data)
+
+        return jsonify({'message': 'User created successfully', 'user_id': str(result.inserted_id)}), 201
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    
+
 
 @app.route('/questionaire', methods=['GET'])
 def get_questionaire():
@@ -121,7 +155,7 @@ def SignIn():
         password = data.get('password')
         
           
-        users_collection = mongo.mydb.admin
+        users_collection = mongo.AI_KHIM.admin
     
         user = users_collection.find_one({
             '$or': [
@@ -153,7 +187,7 @@ def Register():
         password = data.get('password')
         email = data.get('email')
 
-        users_collection = mongo.mydb.admin
+        users_collection = mongo.AI_KHIM.admin
 
         # Insert data into MongoDB
         user_data = {
@@ -172,30 +206,36 @@ def Register():
         return jsonify({'error': str(e)}), 500
     
 #--------------------------Login for user-------------------------#  
-@app.route('/LoginKiosk', methods=['POST'])
-def userkiosk():
+@app.route('/Loginusers', methods=['GET'])
+def userskiosk():
     try:
-        data = request.json
-        user_ID = data.get('user_ID')
+        user_IDs = request.args.get('user_IDs')
 
-        users_collection = mongo.mydb.users
-        user_ID = int( user_ID)
+        if not user_IDs:
+            return jsonify({'error': 'User ID is missing'}), 400
 
-        user = users_collection.find_one({'user_ID': user_ID})
-        
-       
+        users_collection = db['users']
+
+        user = users_collection.find_one({'user_IDs': user_IDs})
+
         if user:
-            user['_id'] = str(user['_id'])
-            return jsonify({'message': 'User details retrieved successfully', 'data': user}), 200
+            # สร้างข้อมูลผู้ใช้งานที่ส่งกลับไปยังหน้าผู้ใช้
+            user_data = {
+                'user_IDs': user.get('user_IDs'),
+                'user_name': user.get('user_name'),
+                'user_surname': user.get('user_surname'),
+                'user_age': user.get('user_age'),
+                'user_sex': user.get('user_sex')
+            }
+            return jsonify({'message': 'User details retrieved successfully', 'data': user_data}), 200
         else:
-            return jsonify({'message': 'User not found'}), 404
+            return jsonify({'error': 'User not found'}), 404
 
     except Exception as e:
         print(f"Error: {str(e)}")
-        return jsonify({'error': str(e)}), 500
+        return jsonify({'error': 'Internal server error'}), 500
+
     
-
-
 
 #--------------Display user detail on ShowInfo page--------------#   
 @app.route('/getUserDetails', methods=['GET'])
@@ -207,7 +247,7 @@ def get_user_details():
         if user_ID is None:
            return jsonify({'error': 'User ID is missing or invalid'}), 400
 
-        users_collection = mongo.mydb.users
+        users_collection = mongo.AI_KHIM.users
         user_ID = int(user_ID)
 
         user = users_collection.find_one({'user_ID': user_ID})

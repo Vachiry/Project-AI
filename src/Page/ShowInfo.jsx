@@ -8,12 +8,10 @@ import { useState } from "react";
 import axios from 'axios';
 
 function ShowInfo() {
-    
     const Headtext =  "สวัสดีค่ะ";  
-    
     const navigate = useNavigate();           
     const EnterID = () => {
-    navigate("/EnterID")
+        navigate("/EnterID")
     }     
     
     const [userDetails, setUserDetails] = useState([]);
@@ -23,10 +21,8 @@ function ShowInfo() {
         try {
             const response = await axios.get('http://localhost:5000/getUserDetails', {
                 params: {
-                    user_id: UserID
+                    user_IDs: user_IDs
                 }})
-
-              
                 setUserDetails(response.data.data);
                 console.log(response.data.data);
                     navigate('/Form');
@@ -36,7 +32,6 @@ function ShowInfo() {
             console.error('Error fetching user details:', error);
         }
     };
-
     return (
         <>
         <NavBar/> 
@@ -46,8 +41,8 @@ function ShowInfo() {
                   <div className="Container">
                         <div className="auth-wrapper">
                         {userDetails.map(user => (
-                            <div key={user.user_ID}>
-                                <h1>User ID: {user.user_ID}</h1>
+                            <div key={user.user_IDs}>
+                                <h1>User ID: {user.user_IDs}</h1>
                                 <h1>Name: {user.user_name}</h1>
                                 <h1>Surname: {user.user_surname}</h1>
                                 <h1>Sex: {user.user_sex}</h1>
