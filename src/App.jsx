@@ -1,4 +1,5 @@
 //import "./App.css";
+import { useState } from 'react';
 import LoginForm from './Components/LoginForm'
 import Dashboard from './Page/Dashboard'
 import Editting from './Page/Editting'
@@ -13,7 +14,7 @@ import { BrowserRouter,Routes,Route,} from "react-router-dom";
 import '@fortawesome/fontawesome-svg-core/styles.css';
 
 function App() {
- 
+  const [user_IDs, setUserIDs] = useState("");
 
   return (
     <>
@@ -27,9 +28,10 @@ function App() {
                     <Route exact path="/Editting" element={<Editting/>} />
                     
                     <Route exact path="/HomeScreen" element={<HomeScreen />} />
-                    <Route exact path="/EnterID" element={<EnterID/>} />
                     <Route exact path="/Form" element={<Form/>} />
-                    <Route exact path="/ShowInfo" element={<ShowInfo/>} />
+
+                    <Route path="/EnterID" element={<EnterID setUserIDs={setUserIDs} />} />
+                    <Route path="/ShowInfo" element={<ShowInfo user_IDs={user_IDs} />} />
                      {/* 
                     <Route exact path="/QueestionForm" element={<QueestionForm/>} />
                     */}

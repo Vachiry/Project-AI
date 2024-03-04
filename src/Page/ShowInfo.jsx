@@ -1,64 +1,64 @@
-//import "../App.css";
-import NavBar from "../Components/NavBar";
-import '../Page/ShowInfo.css';
-import Button from "../Components/Button";
-import { useNavigate } from "react-router-dom";
-import { GoArrowLeft } from "react-icons/go";
-import { useState } from "react";
+import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import NavBar from '../Components/NavBar';
+import { GoArrowLeft } from "react-icons/go";
 
-function ShowInfo() {
-    const Headtext =  "สวัสดีค่ะ";  
-    const navigate = useNavigate();           
+
+function ShowInfo({user_IDs}) {
+    const [userDetails, setUserDetails] = useState(null);
+    const Headtext = "sdasdasd";
+    const navigate = useNavigate(); // นำเข้า useNavigate มาใช้งาน
+
     const EnterID = () => {
         navigate("/EnterID")
-    }     
-    
-    const [userDetails, setUserDetails] = useState([]);
-    const[UserID ]= useState('');
+    }
 
-    const getUserDetails = async () => {
-        try {
-            const response = await axios.get('http://localhost:5000/getUserDetails', {
-                params: {
-                    user_IDs: user_IDs
-                }})
+    useEffect(() => {
+        const fetchUserDetails = async () => {
+            try {
+                const response = await axios.get(`http://127.0.0.1:5000/getUserDetails`, {
+                    params: { user_IDs }
+                });
                 setUserDetails(response.data.data);
-                console.log(response.data.data);
-                    navigate('/Form');
-             
+            } catch (error) {
+                console.error("Error fetching user details:", error);
+                setUserDetails(null);
+            }
+        };
+    
+        fetchUserDetails();
+    }, [user_IDs]);
 
-        }catch  (error) {
-            console.error('Error fetching user details:', error);
-        }
-    };
+    
+    console.log(userDetails); 
+    console.log(user_IDs); 
+    
     return (
         <>
-        <NavBar/> 
-        <div className="main-bg-ShowInfo">
-                  <button className="ArrowLeft" onClick={EnterID}><GoArrowLeft /></button>
-                  <div className="Headtext">{Headtext}</div>
-                  <div className="Container">
-                        <div className="auth-wrapper">
-                        {userDetails.map(user => (
-                            <div key={user.user_IDs}>
-                                <h1>User ID: {user.user_IDs}</h1>
-                                <h1>Name: {user.user_name}</h1>
-                                <h1>Surname: {user.user_surname}</h1>
-                                <h1>Sex: {user.user_sex}</h1>
-                                <h1>Age: {user.user_age}</h1>
-                                     </div>
-                                 ))}
-                         </div>
-                     </div>
-                     <div className="Button">
-                              <Button onClick={getUserDetails}>ถัดไป</Button>
-                     </div>
-                 </div>
-             
-            </>   
-  );
+            <NavBar /> {/* แสดง NavBar */}
+            <div className="main-bg-ShowInfo">
+                <button className="ArrowLeft" onClick={EnterID}><GoArrowLeft /></button>
+                <div className="Headtext">{Headtext}</div>
+                <div className="Container">
+                    <div className="auth-wrapper">
+                        {/* ตรวจสอบว่า userDetails มีค่าหรือไม่ก่อนทำการ map */}
+                        {userDetails && (
+                          <div>
+                            <p>User ID: {userDetails.user_IDs}</p>
+                            <p>Name: {userDetails.user_name}</p>
+                            <p>Surname: {userDetails.user_surname}</p>
+                            <p>Age: {userDetails.user_age}</p>
+                            <p>Sex: {userDetails.user_sex}</p>
+                          </div>
+                        )}
+                    </div>
+                </div>
+                <div className="Button">
+                    <button >ถัดไป</button>
+                </div>
+            </div>
+        </>
+    );
 }
-
-
 export default ShowInfo;

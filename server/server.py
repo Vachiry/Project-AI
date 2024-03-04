@@ -214,7 +214,7 @@ def userskiosk():
         if not user_IDs:
             return jsonify({'error': 'User ID is missing'}), 400
 
-        users_collection = db['users']
+        users_collection = mongo.AI_KHIM.users
 
         user = users_collection.find_one({'user_IDs': user_IDs})
 
@@ -235,33 +235,38 @@ def userskiosk():
         print(f"Error: {str(e)}")
         return jsonify({'error': 'Internal server error'}), 500
 
+
     
 
 #--------------Display user detail on ShowInfo page--------------#   
 @app.route('/getUserDetails', methods=['GET'])
 def get_user_details():
     try:
-        data = request.json
-        user_ID = data.get('user_ID')
+        user_IDs = request.args.get('user_IDs')
 
-        if user_ID is None:
-           return jsonify({'error': 'User ID is missing or invalid'}), 400
+        if not user_IDs:
+            return jsonify({'error': 'User ID is missing'}), 400
 
         users_collection = mongo.AI_KHIM.users
-        user_ID = int(user_ID)
 
-        user = users_collection.find_one({'user_ID': user_ID})
+        user = users_collection.find_one({'user_IDs': user_IDs})
 
         if user:
-           user['_id'] = str(user['_id'])
-           return jsonify({'message': 'User details retrieved successfully', 'data': user}), 200
+            # สร้างข้อมูลผู้ใช้งานที่ส่งกลับไปยังหน้าผู้ใช้
+            user_data = {
+                'user_IDs': user.get('user_IDs'),
+                'user_name': user.get('user_name'),
+                'user_surname': user.get('user_surname'),
+                'user_age': user.get('user_age'),
+                'user_sex': user.get('user_sex')
+            }
+            return jsonify({'message': 'User details retrieved successfully', 'data': user_data}), 200
         else:
-            return jsonify({'message': 'User not found'}), 401
+            return jsonify({'error': 'User not found'}), 404
 
-    except ValueError as ve:
-        return jsonify({'error': f'Error converting user ID to integer: {str(ve)}'}), 400
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        print(f"Error: {str(e)}")
+        return jsonify({'error': 'Internal server error'}), 500
 
 
 if __name__ == '__main__':
