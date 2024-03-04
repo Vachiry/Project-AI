@@ -1,4 +1,5 @@
 //import "./App.css";
+import { useState } from 'react';
 import LoginForm from './Components/LoginForm'
 import Dashboard from './Page/Dashboard'
 import Editting from './Page/Editting'
@@ -8,31 +9,36 @@ import HomeScreen from "./Page/HomeScreen";
 import EnterID from "./Page/EnterID";
 import Form from "./Page/Form";
 import ShowInfo from "./Page/ShowInfo";
-//import QueestionForm from "./page/QueestionForm";
+import Questionpage from './Page/Questionpage';
+import TestAudio from './Page/TestAudio';
+import QuestionPageIcon from './Page/QuestionPageIcon';
 import { BrowserRouter,Routes,Route,} from "react-router-dom";
 import '@fortawesome/fontawesome-svg-core/styles.css';
 
 function App() {
- 
+    const [user_ID, setUser_ID] = useState("");
+    const [username, setAdminName] = useState("");
 
   return (
     <>
             <BrowserRouter>
                 <Routes>
                   
-                    <Route exact path="/Login" element={<LoginForm />} />
+                    <Route exact path="/Login" element={<LoginForm setUsername={setAdminName} />} />
                     <Route exact path="/Register" element={<Register/>} />
-                    <Route exact path="/HeadPage" element={<HeadPage/>} />
+                    <Route exact path="/HeadPage" element={<HeadPage username={username} />} />
                     <Route exact path="/Dashboard" element={<Dashboard/>} />
                     <Route exact path="/Editting" element={<Editting/>} />
                     
                     <Route exact path="/HomeScreen" element={<HomeScreen />} />
-                    <Route exact path="/EnterID" element={<EnterID/>} />
+                    <Route path="/EnterID" element={<EnterID setUser_ID={setUser_ID} />} />
                     <Route exact path="/Form" element={<Form/>} />
-                    <Route exact path="/ShowInfo" element={<ShowInfo/>} />
-                     {/* 
-                    <Route exact path="/QueestionForm" element={<QueestionForm/>} />
-                    */}
+                    <Route path="/ShowInfo" element={<ShowInfo user_ID={user_ID} />} />
+                    <Route exact path="/Questionpage" element={<Questionpage/>} />
+                    <Route exact path="/TestAudio" element={<TestAudio/>} />
+                   
+                    <Route exact path="/QuestionPageIcon" element={<QuestionPageIcon/>} />
+                  
 
 
                 </Routes>

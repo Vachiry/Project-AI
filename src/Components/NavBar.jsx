@@ -2,9 +2,13 @@
 import "./NavBar.css";
 import HospitalLogo from '../Image/HospitalLogo.png';
 import { useNavigate } from 'react-router-dom';
+//import { faCircleUser } from "react-icons/fa";
+
+//import { FaMicrophone } from "react-icons/fa6";
+
 function NavBar() {
       const navigate = useNavigate();
-      const navtext =  "โรงพยาบาลวชิรพัฒน์ \nWachiraphat Hospital";   
+      const navtext =  "โรงพยาบาลพระจอมเกล้า \nKing's Monkut Hospital";   
 
       const goToHomeScreen = () => {
         try {
@@ -13,7 +17,7 @@ function NavBar() {
             console.error("Error navigating to HomeScreen:", error);
         }
     }
-    
+
     return(
        
         <>
@@ -23,9 +27,10 @@ function NavBar() {
             
                 <div className="nav-container">   
                 <img src={HospitalLogo}  onClick={goToHomeScreen} alt="" className="logo"/>     
-                           
+                         
                 <div className="nav-headtext">{navtext}</div>        
-                            
+                
+                
                 </div>
                 
 

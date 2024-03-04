@@ -1,14 +1,15 @@
 //import React from 'react'
-import { Avatar, Flex } from 'antd';
+import { Avatar, Flex, Typography } from 'antd';
 import Search from 'antd/es/input/Search';
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { MessageOutlined, BellOutlined , UserOutlined  } from '@ant-design/icons';
+//import { Typography } from 'react-icons/go';
 
-function HeaderPage() {
+function HeaderPage({ username }) {
   return (
     <Flex align= "center" justify="space-between" >
-        
-        <Flex align="center" gap="2rem">
+         <Typography.Title level={3} type="secondary">Welcome back, {username} </Typography.Title>
+         <Flex align="center" gap="2rem">
             <Search placeholder="Search Dashboard" allowClear />
 
             <Flex align="center" gap="17px">
@@ -20,14 +21,6 @@ function HeaderPage() {
             </Flex>
         </Flex> 
          
-
-
-
-
-
-
-
-
 
     </Flex>
   )

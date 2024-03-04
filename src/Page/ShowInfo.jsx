@@ -1,13 +1,13 @@
 //import "../App.css";
+import  { useState, useEffect } from "react";
 import NavBar from "../Components/NavBar";
 import '../Page/ShowInfo.css';
 import Button from "../Components/Button";
 import { useNavigate } from "react-router-dom";
 import { GoArrowLeft } from "react-icons/go";
-import { useState } from "react";
 import axios from 'axios';
 
-function ShowInfo() {
+function ShowInfo({user_ID}) {
     
     const Headtext =  "สวัสดีค่ะ";  
     
@@ -15,27 +15,34 @@ function ShowInfo() {
     const EnterID = () => {
     navigate("/EnterID")
     }     
+
+    const goToForm = () => {
+        navigate("/Form")
+        }     
     
-    const [userDetails, setUserDetails] = useState([]);
-    const[UserID ]= useState('');
+    const [userDetails, setUserDetails] = useState(null);
+    
+    
 
-    const getUserDetails = async () => {
-        try {
-            const response = await axios.get('http://localhost:5000/getUserDetails', {
-                params: {
-                    user_id: UserID
-                }})
-
-              
+    useEffect(() => {
+        const fetchUserDetails = async () => {
+            try {
+                const response = await axios.get(`http://127.0.0.1:5000/getUserDetails`, {
+                    params: { user_ID }
+                });
                 setUserDetails(response.data.data);
-                console.log(response.data.data);
-                    navigate('/Form');
-             
+            } catch (error) {
+                console.error("Error fetching user details:", error);
+                setUserDetails(null);
+            }
+        };
+    
+        fetchUserDetails();
+    }, [user_ID]);
 
-        }catch  (error) {
-            console.error('Error fetching user details:', error);
-        }
-    };
+    
+    console.log(userDetails); 
+    console.log(user_ID); 
 
     return (
         <>
@@ -45,25 +52,24 @@ function ShowInfo() {
                   <div className="Headtext">{Headtext}</div>
                   <div className="Container">
                         <div className="auth-wrapper">
-                        {userDetails.map(user => (
-                            <div key={user.user_ID}>
-                                <h1>User ID: {user.user_ID}</h1>
-                                <h1>Name: {user.user_name}</h1>
-                                <h1>Surname: {user.user_surname}</h1>
-                                <h1>Sex: {user.user_sex}</h1>
-                                <h1>Age: {user.user_age}</h1>
-                                     </div>
-                                 ))}
+
+                        {userDetails && (
+                            <>
+                                <h1>User ID: {userDetails.user_ID}</h1>
+                                <h1>Name: {userDetails.user_name}</h1>
+                                <h1>Surname: {userDetails.user_surname}</h1>
+                                <h1>Sex: {userDetails.user_sex}</h1>
+                                <h1>Age: {userDetails.user_age}</h1>
+                             </>
+                                 )}
                          </div>
                      </div>
                      <div className="Button">
-                              <Button onClick={getUserDetails}>ถัดไป</Button>
+                              <Button onClick={goToForm}>ถัดไป</Button>
                      </div>
                  </div>
              
             </>   
   );
 }
-
-
 export default ShowInfo;

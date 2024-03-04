@@ -16,9 +16,13 @@ function Form() {
 
     const ShowInfo = () => {
         navigate("/ShowInfo")}
-    const QueestionForm = () => {
-        navigate("/QueestionForm")
+
+    const QuestionForm = () => {
+        navigate("/Questionpage")
     }
+
+    const goToQuestionIcon = () => {
+        navigate("/QuestionPageIcon")}
 
     return(
         <>   
@@ -26,12 +30,12 @@ function Form() {
             <div className="main-bg-form">
             <div className="ArrowList">
                  <GoArrowLeft className="ArrowLeft" onClick={ShowInfo}/>
-                 <FaThList className="BoxList"/>
+                 <FaThList className="BoxList" onClick={goToQuestionIcon}/>
             </div>
             <div className="HeadtextForm">{text}</div>
             <div className="Subtext">{subtext}</div>
             <div className="Button">
-              <Button onClick={QueestionForm} >คลิกที่นี่เพื่อเริ่มต้น</Button>
+              <Button onClick={QuestionForm} >คลิกที่นี่เพื่อเริ่มต้น</Button>
  
             </div>
             <div className="TextBox">

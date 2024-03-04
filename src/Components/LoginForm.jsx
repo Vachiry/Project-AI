@@ -4,12 +4,14 @@ import { FaUser, FaLock } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const LoginForm = () => {
+const LoginForm = ({setAdminName}) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -32,7 +34,7 @@ const LoginForm = () => {
         }, { withCredentials: true })
         .then(function (response) {
           console.log(response);
-       
+          setAdminName(username);
           
           navigate('/HeadPage');
         })
