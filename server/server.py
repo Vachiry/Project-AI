@@ -12,7 +12,7 @@ app = Flask(__name__)
 CORS(app)
 bcrypt = Bcrypt(app)
 
-mongo = MongoClient('mongodb+srv://bigboyzin88:lSktgRehKmm1gzJb@cluster0.blsdxre.mongodb.net/')
+# mongodb
 db = mongo['AI_KHIM']
 
 
