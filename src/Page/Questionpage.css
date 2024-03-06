@@ -1,0 +1,143 @@
+* {
+    margin: 0;
+    padding: 0;
+    
+}
+
+.navbar
+{
+    position: absolute;
+    width: 100%;
+    /* height: 100vh; */
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+
+.nav-container
+{
+    top: 8px;
+    position: absolute;
+    left: 0px;
+}
+
+.main-bg-question {
+    background-color: #fffbf0;
+    min-height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+
+}
+
+.ArrowLeft
+{
+    position: absolute;
+    top: 120px;
+    left: 10px;
+}
+
+.Container {
+    /* padding: 50%; */
+    display: block;
+    width: 200px;
+    height: 200px;
+    border-radius: 200px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    background-color: #645e5e;
+    /* background-color: red; */
+}
+
+img.audio-recorder-mic
+{
+    padding-right: 1px;
+    width: 100px;
+    height: 100px;
+    /* background-color: #645e5e; */
+
+}
+
+.audio-recorder {
+    /* padding: 50%; */
+    /* width: 100%;
+    height: 100x; */
+    /* border-radius: 50px; Make it a circle */
+    /* border: 1px solid #ccc; */
+    display: block;
+    width: 100px;
+    height: 100px;
+    /* padding: 50px;
+    border-radius: 50px;
+    background-color: #645e5e; */
+    justify-content: center;
+    align-items: center;
+    justify-content: center;;
+    background-color: #645e5e!important;
+    /* border-color: #645e5e !important; */
+    box-shadow: 5px 5px 5px #645e5e  !important;
+    
+    
+}
+
+/* .audio-recorder */
+.recording
+{
+    border-radius: 0px  ;
+    margin-top: 370px ;
+    width: 500px !important;
+    /* padding-left: 500px !important; */
+}
+.audio-recorder.recording{
+    width: 500px !important;
+    background-color: white!important ;
+    /* padding-top: 500px; */
+
+}
+
+img.audio-recorder-mic
+{
+    width: 30px;
+}
+
+.Recorder {
+    margin-bottom: 50px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%; /* Make it a circle */
+}
+
+
+audio
+{
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    /* width: 100; */
+    top:850px!important ;
+    position: absolute;
+    /* margin-left: 42.2%;
+    margin-right: 67.8%; */
+    
+    /* margin-bottom: 40px; */
+    /* padding-top: 50px; */
+}
+
+body
+{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
