@@ -19,14 +19,11 @@ import Checkpage from './Page/Checkpage';
 import Editpage from './Page/Editpage';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import Recyclepage from './Page/Recyclepage';
+import RouteWithSidebar from './Page/RouteWithSidebar';
 //import Sidebar from './Components/sidebar/Sidebar';
 
 
-const RouteWithSidebar = ({ element }) => (
-  <HeadPage >
-    {element}
-  </HeadPage>
-);
+
 
 function App() {
     const [user_ID, setUser_ID] = useState("");
@@ -39,11 +36,11 @@ function App() {
     <BrowserRouter>
             
             <Routes>
-                <Route path="/HeadPage" element={<HeadPage  />} />
-                 <Route path="/Editpage" element={<RouteWithSidebar element={<Editpage />} />} />
-                 <Route path="/Checkpage" element={<RouteWithSidebar  element={<Checkpage />} />} />
-                 <Route path="/Dashboard"  element={<RouteWithSidebar  element={<Dashboard />} />}/>
-                 <Route path="/Recyclepage" element={<RouteWithSidebar  element={<Recyclepage />} />} />
+                    <Route path="/HeadPage" element={<HeadPage  />} />
+                    <Route path="/Editpage" element={<RouteWithSidebar element={<Editpage />} />} />
+                    <Route path="/Checkpage" element={<RouteWithSidebar  element={<Checkpage />} />} />
+                    <Route path="/Dashboard"  element={<RouteWithSidebar  element={<Dashboard />} />}/>
+                    <Route path="/Recyclepage" element={<RouteWithSidebar  element={<Recyclepage />} />} />
                      
                     <Route exact path="/Login" element={<LoginForm  />} />
                     <Route exact path="/Register" element={<Register/>} />

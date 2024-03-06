@@ -1,30 +1,29 @@
-//import react from "react";
-//import './dashboard.css';
 import { Layout } from 'antd';
 import "../Components/Home.css";
+// import RouteWithSidebar from '../RouteWithSidebar'; // Assuming RouteWithSidebar is defined in a separate file
+
 function Dashboard() {
-
-
     return (
-       <> 
-             <Layout className="site-layout">
-
-
-                      <div className ="content">
-
-                           <h1>Dashboard</h1>
-
-                         </div>
-             </Layout> 
-           
-
-
-
-         
-     
-       </>
-           
-       
+        
+            <Layout className="site-layout">
+                <h1>Dashboard</h1>
+                <h1>Dashboard</h1>
+                <h1>Dashboard</h1>
+                <h1>Dashboard</h1>
+                <h1>Dashboard</h1>
+                <h1>Dashboard</h1>
+                <h1>Dashboard</h1>
+                <h1>Dashboard</h1>
+                <h1>Dashboard</h1>
+                <h1>Dashboard</h1>
+                <h1>Dashboard</h1>
+                <h1>Dashboard</h1>
+                <h1>Dashboard</h1>
+                <h1>Dashboard</h1>
+                <h1>Dashboard</h1>
+                <h1>Dashboard</h1>
+            </Layout>
+        
     );
 }
 

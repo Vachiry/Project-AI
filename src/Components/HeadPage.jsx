@@ -10,34 +10,9 @@ import Dashboard from '../Page/Dashboard';
 //import Editpage from '../Page/Editpage';
 const { Sider, Header} = Layout;
 //import App from '../App';
-function HeadPage() {
-     {/* 
-  const [AdminDetail, setAdminDetail] = useState(null);
-
-  useEffect(() => {
-    const fetchAdminDetail = async () => {
-      try {
-        const response = await axios.get(`http://127.0.0.1:5000/getAdmindetail`, {
-          params: { username },
-        });
-        setAdminDetail(response.data.data);
-      } catch (error) {
-        console.error("Error fetching admin details:", error);
-        setAdminDetail(null);
-      }
-    };
-
-    fetchAdminDetail();
-  }, [username]);
-
-  console.log(setAdminDetail);
-  console.log(username);*/}
+function HeadPage({ children }) {
   
   const [collapsed, setCollapsed] = useState(false); 
-
-  
-
-
 
   return (
     <>
@@ -69,7 +44,7 @@ function HeadPage() {
             <HeaderPage />
          </Header>
          <div className ="content">
-          
+              {children}
          </div>
       </Layout> 
      
