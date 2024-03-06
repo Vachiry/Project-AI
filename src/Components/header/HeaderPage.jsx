@@ -5,15 +5,20 @@ import Search from 'antd/es/input/Search';
 import { MessageOutlined, BellOutlined , UserOutlined  } from '@ant-design/icons';
 //import { Typography } from 'react-icons/go';
 
-function HeaderPage({ username }) {
+
+function HeaderPage( ) {
+  
+
+
   return (
     <Flex align= "center" justify="space-between" >
-         <Typography.Title level={3} type="secondary">Welcome back, {username} </Typography.Title>
+         <Typography.Title level={3} type="secondary">
+                     Welcome back, 
+         </Typography.Title>
          <Flex align="center" gap="2rem">
             <Search placeholder="Search Dashboard" allowClear />
 
             <Flex align="center" gap="17px">
-
 
                <MessageOutlined className='header-icon'/>
                <BellOutlined className='header-icon'/> 

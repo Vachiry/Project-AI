@@ -30,12 +30,12 @@ function EnterID({setUser_ID})  {
       const LogInUser = async () => {
         try {
 
-             if (user_ID.length  === 0) {
+             if (user_ID.length  === 0 ) {
              alert("Please fill in all required fields!");
-        }
-        else{
-             setUser_ID(user_ID); 
-             navigate(`/ShowInfo?user_ID=${user_ID}`);
+        }    
+             else{
+                 setUser_ID(user_ID);              
+                     navigate(`/ShowInfo?user_ID=${user_ID}`);
 
         }}
         catch (error) {

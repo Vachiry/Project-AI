@@ -4,7 +4,7 @@ import { FaUser, FaLock } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const LoginForm = ({setAdminName}) => {
+const LoginForm = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
@@ -28,15 +28,18 @@ const LoginForm = ({setAdminName}) => {
     } else {
       axios
         .post('http://127.0.0.1:5000/LogIn', {
-          email: email,
-          username: username,
-          password: password,
-        }, { withCredentials: true })
+         
+            email: email,
+            username: username,
+            password: password,
+          },
+      
+        )
         .then(function (response) {
           console.log(response);
-          setAdminName(username);
-          
-          navigate('/HeadPage');
+
+          //setAdminName(username);
+          navigate(`/HeadPage?admin_username=${username}`);
         })
         .catch(function (error) {
           console.log(error, 'error');

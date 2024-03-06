@@ -72,6 +72,7 @@ function Questionpage() {
     const goToForm = () => {
     navigate("/Form")
     }  
+    
   return (
    
    <div>
@@ -81,13 +82,15 @@ function Questionpage() {
                 <button className="ArrowLeft" onClick={goToForm} ><GoArrowLeft /></button>
                 
                 <div className="Container">
-                   
+                     
            
-                <AudioRecorder
+                <AudioRecorder className="audio-recorder"
                    onRecordingComplete={handleRecordingComplete}
                    recorderControls={recorderControls}
-                   showVisualizer={true}/> 
-               
+                   showVisualizer={true}
+                  
+                    />
+                  
                      {apiResponse && (
                          <div>
                              <h2>API Response:</h2>
@@ -95,8 +98,9 @@ function Questionpage() {
                              <pre>{JSON.stringify(apiResponse, null, 2)}</pre>
                          </div>
                      )}
+                     </div>
  
-                 </div>
+              
          </div>
      </div>
   )

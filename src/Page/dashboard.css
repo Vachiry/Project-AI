@@ -1,0 +1,96 @@
+.main-Dashboard {
+    margin-top: 0.2px;
+   
+   
+}
+
+.header {
+    padding-top: 12px;
+    background: #fff;
+}
+.header h1 {
+    text-align: center;
+    font-size: 50px;
+}
+.content {
+    margin: 24px 16px;
+    padding: 20px;
+}
+
+.sider {
+    height: 100vh;
+    position: sticky !important;
+    left: 0;
+    Bottom: 0;
+    top: 0;
+}
+.menu-content-link {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    font-size: 15px;
+    transation: all 0.5s;
+    width: 100%;
+  }
+
+.logo {
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin-top: 12px;
+    margin-left: 2px;
+  
+}
+.triger-btn {
+
+    font-size: 16px;
+    width: 50px;
+    height:50px;
+    position: fixed;
+    bottom: 1px;
+    left:10px;
+    color: #fff;
+}
+
+.menu-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-weight: 500;
+    background: #001529;
+  
+}
+/* Ensure that Menu.Item has 100% width */
+.ant-menu-item {
+    width: 100%;
+  }
+   
+
+.ant-menu-item-selected {
+    background-color: #384369 !important;
+    color: #fff !important;
+    
+}
+  /* Set hover effect for the selected item */
+  .ant-menu-item-selected:hover {
+    background-color: #384369 !important;
+    color: #fff !important;
+  }
+
+
+.changeto{
+    color:#fff;
+    
+}
+
+.header-icon {
+    background: #fff;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 20px;
+    color: #001529;
+    cursor:pointer;
+}
+
+
+

@@ -1,24 +1,30 @@
 //import react from "react";
-
+//import './dashboard.css';
+import { Layout } from 'antd';
+import "../Components/Home.css";
 function Dashboard() {
 
 
     return (
-       <section className="dashboard section">
-           <div className="row"> 
-              <div className="col-lg-8">
-                <div className="row"></div>
-              </div>
-              <div className="col-lg-4"></div>
-           
-           
-           </div>
-          
+       <> 
+             <Layout className="site-layout">
 
 
-           
-        </section>
+                      <div className ="content">
 
+                           <h1>Dashboard</h1>
+
+                         </div>
+             </Layout> 
+           
+
+
+
+         
+     
+       </>
+           
+       
     );
 }
 

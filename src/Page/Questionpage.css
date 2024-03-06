@@ -21,9 +21,22 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+    margin-top: 300px;
+ 
+ 
+}
+
+.audio-recorder{
+    
+    max-width: 200rem;
+    border-radius: 50%;
+    background-color:  #fff; /* Set your desired background color */
+    color: #fff; /* Set your desired text color */
+    cursor: pointer; /* Add a pointer cursor to indicate interactivity */
     
 }
 
-.Recorder {
-   margin-bottom: 50px;
+
+.audio-recorder:hover{
+    color:green;
 }
