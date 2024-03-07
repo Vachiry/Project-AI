@@ -154,9 +154,9 @@ SECRET_KEY = "HospitalKiosk"
 def SignIn():
     try:
         data = request.json
-        email = data.get('email')
-        username = data.get('username')
-        password = data.get('password')
+        email = data.get('admin_email')
+        username = data.get('admin_username')
+        password = data.get('admin_password')
                  
         users_collection = mongo.mydb.admin
     

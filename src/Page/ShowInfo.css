@@ -68,3 +68,16 @@
     font-size: 20px;
 
 }
+
+.Containers
+{
+    /* Make it center */
+    margin-top: 220px; 
+}
+.UserDetail-section
+{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

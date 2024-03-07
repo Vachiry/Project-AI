@@ -96,14 +96,17 @@ img.audio-recorder-mic
 .recording
 {
     border-radius: 0px  ;
-    margin-top: 370px ;
+    /* margin-top: 370px ; */
     width: 500px !important;
     /* padding-left: 500px !important; */
 }
 .audio-recorder.recording{
     width: 500px !important;
-    background-color: white!important ;
+    background-color: #ffffffc5!important ;
+    backdrop-filter: blur(3px);
+    /* backdrop-filter: blur(3px); */
     /* padding-top: 500px; */
+
 
 }
 
@@ -126,7 +129,7 @@ audio
     align-items: center;
     justify-items: center;
     /* width: 100; */
-    top:850px!important ;
+    top:0px!important ;             
     position: absolute;
     /* margin-left: 42.2%;
     margin-right: 67.8%; */
@@ -135,7 +138,7 @@ audio
     /* padding-top: 50px; */
 }
 
-body
+.body
 {
     align-items: center;
     justify-content: center;

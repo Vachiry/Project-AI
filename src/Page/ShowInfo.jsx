@@ -50,19 +50,21 @@ function ShowInfo({user_ID}) {
         <div className="main-bg-ShowInfo">
                   <button className="ArrowLeft" onClick={EnterID}><GoArrowLeft /></button>
                   <div className="Headtext">{Headtext}</div>
-                  <div className="Container">
+                  <div className="Containers">
+                    <div className="UserDetail-section">
                         <div className="auth-wrapper">
-
-                        {userDetails && (
-                            <>
-                                <h1>User ID: {userDetails.user_ID}</h1>
-                                <h1>Name: {userDetails.user_name}</h1>
-                                <h1>Surname: {userDetails.user_surname}</h1>
-                                <h1>Sex: {userDetails.user_sex}</h1>
-                                <h1>Age: {userDetails.user_age}</h1>
-                             </>
-                                 )}
-                         </div>
+                            {userDetails && (
+                                <>
+                                    <h1>User ID: {userDetails.user_ID}</h1>
+                                    <h1>Name: {userDetails.user_name}</h1>
+                                    <h1>Surname: {userDetails.user_surname}</h1>
+                                    <h1>Sex: {userDetails.user_sex}</h1>
+                                    <h1>Age: {userDetails.user_age}</h1>
+                                </>
+                                    )}
+                        </div>
+                    </div>
+                        
                      </div>
                      <div className="Button">
                               <Button onClick={goToForm}>ถัดไป</Button>

@@ -28,13 +28,12 @@ const LoginForm = ({setAdminName}) => {
     } else {
       axios
         .post('http://127.0.0.1:5000/LogIn', {
-          email: email,
-          username: username,
-          password: password,
+          admin_email: email,
+          admin_username: username,
+          admin_password: password,
         }, { withCredentials: true })
         .then(function (response) {
           console.log(response);
-          setAdminName(username);
           
           navigate('/HeadPage');
         })

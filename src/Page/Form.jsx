@@ -28,22 +28,23 @@ function Form() {
         <>   
             <NavBar/> 
             <div className="main-bg-form">
-            <div className="ArrowList">
-                 <GoArrowLeft className="ArrowLeft" onClick={ShowInfo}/>
-                 <FaThList className="BoxList" onClick={goToQuestionIcon}/>
-            </div>
-            <div className="HeadtextForm">{text}</div>
-            <div className="Subtext">{subtext}</div>
-            <div className="Button">
-              <Button onClick={QuestionForm} >คลิกที่นี่เพื่อเริ่มต้น</Button>
- 
-            </div>
-            <div className="TextBox">
-                <div className="Subtext">{subtext2} </div>
-                <FaThList className="BoxListText"/>
-            </div>
-            
-            <div className="Subtext">{subtext3}</div>
+                <div className="ArrowList">
+                    <GoArrowLeft className="ArrowLeft" onClick={ShowInfo}/>
+                    <FaThList className="BoxList" onClick={goToQuestionIcon}/>
+                </div>
+                <div className="data-section">
+                    <div className="HeadtextForm">{text}</div>
+                    <div className="Subtext">{subtext}</div>
+                    <div className="Button">
+                    <Button onClick={QuestionForm} >คลิกที่นี่เพื่อเริ่มต้น</Button>
+                    <div className="TextBox">
+                    <div className="Subtext">{subtext2} </div>
+                    <FaThList className="BoxListText"/>
+                    </div>         
+                <div className="Subtext">{subtext3}</div>
+                </div>
+                
+                </div>
             </div> 
         </>
     );
