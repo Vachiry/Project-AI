@@ -32,9 +32,9 @@ function App() {
                     
                     <Route exact path="/HomeScreen" element={<HomeScreen />} />
                     <Route path="/EnterID" element={<EnterID setUser_ID={setUser_ID} />} />
-                    <Route exact path="/Form" element={<Form/>} />
+                    <Route exact path="/Form/:user_ID" element={<Form/>} />
                     <Route path="/ShowInfo" element={<ShowInfo user_ID={user_ID} />} />
-                    <Route exact path="/Questionpage" element={<Questionpage/>} />
+                    <Route exact path="/Questionpage/:user_ID" element={<Questionpage/>} />
                     <Route exact path="/TestAudio" element={<TestAudio/>} />
                    
                     <Route exact path="/QuestionPageIcon" element={<QuestionPageIcon/>} />

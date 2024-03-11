@@ -11,6 +11,7 @@ import bcrypt
 import os
 import torch
 from transformers import pipeline
+import uuid
 
 
 app = Flask(__name__)
@@ -240,6 +241,30 @@ def userkiosk():
     except Exception as e:
         print(f"Error: {str(e)}")
         return jsonify({'error': 'Internal server error'}), 500
+    
+@app.route('/GetAns', methods=['POST'])
+def GetAns():
+    try:
+       
+        data = request.json
+        user_ID = data.get('user_ID')
+    
+
+        if user_ID is None:
+            return jsonify({'error': 'User ID is missing'}), 400
+    
+        user_ID = int(user_ID)
+        
+        users_collection = mongo.mydb.answer
+        ans = users_collection.find({}, {'user_ID': 1, 'question_ID': 1, 'answer': 1, '_id': 0})
+        ans_list = list(ans)
+        
+        print(ans_list)
+        return jsonify({'result': ans_list}), 200
+
+    except Exception as e:
+        print(f"Error: {str(e)}")
+        return jsonify({'error': 'Internal server error'}), 500
 
 #--------------Display user detail on ShowInfo page--------------#   
 @app.route('/getUserDetails', methods=['GET'])
@@ -326,16 +351,26 @@ def get_question():
 @app.route('/Model', methods=['POST'])
 def Model():
     try:
-        
-        audio_file = request.files['audio']
-        print(audio_file)
-        if audio_file:
+        audiofile = request.files['audio']
+        data = request.form.get('data')
+        user_ID = None
+        Question_ID = None
+
+        if data:
+            data = json.loads(data)
+            user_ID = data.get('user_ID')
+            Question_ID = data.get('Question_ID')
+            print(user_ID)
+            print(Question_ID)
+        if audiofile:
             # Save the audio file to a specific location
-            path = './Audio/'
-            if not os.path.exists(path):
-                os.makedirs(path)
-            audio_path = os.path.join(path, 'audio.wav')
-            audio_file.save(audio_path)
+            unique_filename = str(uuid.uuid4()) + '.wav'
+            folder_path = f'./Audio/'
+            if not os.path.exists(folder_path):
+                os.makedirs(folder_path)
+            print('save')
+            audio_path = os.path.join(folder_path, unique_filename)
+            audiofile.save(audio_path)
         MODEL_NAME = "biodatlab/whisper-th-medium-combined"
         lang = "th"
 
@@ -358,6 +393,17 @@ def Model():
         result = {
             'transcriptions':transcriptions
         }
+
+        # Accessing the 'users' collection
+        answer_collection = db['answer']
+
+        answer_data = {
+            'user_ID' : user_ID,
+            'question_ID': Question_ID,
+            'answer': transcriptions,
+            'path': audio_path,
+        }
+        answer_collection.insert_one(answer_data)
         return jsonify({'text': result}), 200
     except Exception as e:
         print(f"Error: {str(e)}")

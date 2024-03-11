@@ -17,7 +17,7 @@ function ShowInfo({user_ID}) {
     }     
 
     const goToForm = () => {
-        navigate("/Form")
+        navigate(`/Form/${user_ID}`);
         }     
     
     const [userDetails, setUserDetails] = useState(null);
