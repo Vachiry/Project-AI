@@ -4,6 +4,7 @@ import Button from "../Components/Button";
 import { useNavigate } from "react-router-dom";
 import { GoArrowLeft } from "react-icons/go";
 import { FaThList } from "react-icons/fa";
+import { useParams } from 'react-router-dom';
 
 
 function Form() {
@@ -11,15 +12,16 @@ function Form() {
     const subtext = "แบบประเมิณต่อไปนี้เป็นการพูดแล้วอัดเสียง"
     const subtext2 = "หากท่านไม่ต้องการอัดเสียง กรุณาคลิกที่"
     const subtext3 = "เพื่อทำแบบประเมิณอาการเบื้องต้น"
-
+    const { user_ID } = useParams();
     const navigate = useNavigate();     
 
     const ShowInfo = () => {
         navigate("/ShowInfo")}
 
-    const QuestionForm = () => {
-        navigate("/Questionpage")
-    }
+        const QuestionForm = () => {
+            navigate(`/Questionpage/${user_ID}`)
+        }
+    
 
     const goToQuestionIcon = () => {
         navigate("/QuestionPageIcon")}

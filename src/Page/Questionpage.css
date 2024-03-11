@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+//<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 * {
     margin: 0;
@@ -8,35 +8,148 @@
 .main-bg-question{
  
     background-color: #FFFBF0;
-    min-height: 100vh;
-   
+    min-height: 100vh;  
+    background-position: center;
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  
+
 }
 
-.Container {
+.ContainerRecorder {
+
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    margin-top: 300px;
- 
- 
+    text-align: center ;
+  margin-top: 300px;
+    background-color: #fff;
+    width: 180px;
+    height: 180px;
+    border-radius: 150px;
+    position: absolute;
+    border: 5px solid  #A71E10 ;
+     transition: background-color 0.3s, border-color 0.3s;
+    
+
+}
+.ContainerRecorder:hover {
+    background-color: #A71E10; /* Change background color on hover */
+    /* Change border color on hover */
+    border: 12px  solid  #EB6E61 ;
+    
+
+}
+img.audio-recorder-mic
+{
+    width: 60px;
+    height: 60px;
+   justify-content: center;
+   align-items: center;
+   justify-content: center;
+   padding: 12px 7px 12px 21px;
+}
+.audio-recorder {
+    
+    display: block;
+    //width: 100x;
+    border-radius: 20px;
+    height: 45px;
+    justify-content: center;
+    align-items: center;
+    justify-content: center;
+    background-color: #F9EBEA !important ;
+    box-shadow: 0px 0px 20px #FFCBC7!important ;
+    
+    
+}
+   
+.recording{
+
+        border-radius: 0px  ;  
+        width: 500px !important;
+       
 }
 
-.audio-recorder{
+.audio-recorder.recording{
+
+        width: 500px !important;
+        background-color: #ffffffc5!important ;
+        backdrop-filter: blur(3px);
     
-    max-width: 200rem;
+  
+ }
+
+
+.Recorder {
+    margin-bottom: 50px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
-    background-color:  #fff; /* Set your desired background color */
-    color: #fff; /* Set your desired text color */
-    cursor: pointer; /* Add a pointer cursor to indicate interactivity */
+}
+
+audio
+{
+    display: flex;
+    align-items: center;
+    justify-items: center;             
+    position: absolute;
+    top: 150;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+ 
+}
+.QuestionStyled{
+    text-align: center;
     
 }
+.QuestionStyled h1{
+    font-family: "Anuphan", sans-serif;
+     font-weight: 420;
+     color: #203526;
+     font-size: 45px;
 
-
-.audio-recorder:hover{
-    color:green;
+     
 }
+
+.ButtonStyled {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-items: center;
+    margin-top: 290px;
+    gap: 80px;
+    width:400px;
+    
+}
+canvas {
+  
+    width:180px;
+  
+}
+
+img.audio.recorder-options {
+
+    padding: 12px 3px 12px 19px;
+    
+}
+.wrap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+}
+
+.QuestionContainer {
+    margin-top: 300px; /* Adjust the margin as needed */
+  }
+  

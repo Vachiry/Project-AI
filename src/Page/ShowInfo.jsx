@@ -17,7 +17,7 @@ function ShowInfo({user_ID}) {
     }     
 
     const goToForm = () => {
-        navigate("/Form")
+        navigate(`/Form/${user_ID}`);
         }     
     
     const [userDetails, setUserDetails] = useState(null);
@@ -50,7 +50,7 @@ function ShowInfo({user_ID}) {
         <div className="main-bg-ShowInfo">
                   <button className="ArrowLeft" onClick={EnterID}><GoArrowLeft /></button>
                   <div className="Headtext">{Headtext}</div>
-                  <div className="Container">
+                  <div className="ContainerShowinfo">
                         <div className="auth-wrapper">
 
                         {userDetails && (

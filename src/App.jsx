@@ -1,11 +1,11 @@
 //import "./App.css";
 import { useState } from 'react';
 import LoginForm from './Components/LoginForm'
-import Editting from './Page/Editting'
+
 import Register from "./Components/Register"
 import HomeScreen from "./Page/HomeScreen";
 import EnterID from "./Page/EnterID";
-import Form from "./Page/Form";
+import Form from './Page/Form';
 import ShowInfo from "./Page/ShowInfo";
 import Questionpage from './Page/Questionpage';
 import TestAudio from './Page/TestAudio';
@@ -20,7 +20,7 @@ import Editpage from './Page/Editpage';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import Recyclepage from './Page/Recyclepage';
 //import Sidebar from './Components/sidebar/Sidebar';
-
+import Testdrop from './Page/Testdrop';
 
 const RouteWithSidebar = ({ element }) => (
   <HeadPage >
@@ -46,19 +46,18 @@ function App() {
                  <Route path="/Recyclepage" element={<RouteWithSidebar  element={<Recyclepage />} />} />
                      
                     <Route exact path="/Login" element={<LoginForm  />} />
-                    <Route exact path="/Register" element={<Register/>} />
-                   
+                    <Route exact path="/Register" element={<Register/>} />   
                     <Route exact path="/Dashboard" element={<Dashboard/>} />
-                    <Route exact path="/Editting" element={<Editting/>} />
+                   
                     
                     <Route exact path="/HomeScreen" element={<HomeScreen />} />
                     <Route exact path="/EnterID" element={<EnterID setUser_ID={setUser_ID} />} />
-                    <Route exact path="/Form" element={<Form/>} />
+                    <Route exact path="/Form/:user_ID?" element={<Form/>} />
                     <Route exact path="/ShowInfo" element={<ShowInfo user_ID={user_ID} />} />
-                    <Route exact path="/Questionpage" element={<Questionpage/>} />
+                    <Route exact path="/Questionpage/:user_ID" element={<Questionpage/>} />
                     <Route exact path="/TestAudio" element={<TestAudio/>} />
                     <Route exact path="/QuestionPageIcon" element={<QuestionPageIcon/>} />
-                  
+                    <Route exact path="/Testdrop" element={<Testdrop/>} />
                       
                     </Routes> 
           

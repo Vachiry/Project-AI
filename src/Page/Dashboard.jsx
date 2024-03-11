@@ -1,28 +1,25 @@
 //import react from "react";
 //import './dashboard.css';
-import { Layout } from 'antd';
-import "../Components/Home.css";
+//import {  Typography }  from 'antd';
+import './dashboard.css';
+import { Card } from 'antd';
 function Dashboard() {
 
 
     return (
-       <> 
-             <Layout className="site-layout">
-
-
-                      <div className ="content">
-
-                           <h1>Dashboard</h1>
-
+       <>  
+          <div className ="Fonthead"><h1>Dashboard</h1>
+                         <div className = "subtext"> 
+                             Home / Dashboard
                          </div>
-             </Layout> 
-           
+          </div>
+          <Card style={{height: 380 , padding:'30px'}}>
+          
 
-
-
-         
-     
-       </>
+          </Card>
+       
+       
+          </>
            
        
     );

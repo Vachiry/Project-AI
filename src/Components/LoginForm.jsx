@@ -11,8 +11,6 @@ const LoginForm = () => {
   const [password, setPassword] = useState('');
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   
-
-
   const handleSubmit = (event) => {
     event.preventDefault();
     // You can add additional logic here if needed

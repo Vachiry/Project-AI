@@ -79,20 +79,23 @@ def create_user():
         return jsonify({'error': str(e)}), 500
 
 
+
 @app.route('/questionaire', methods=['GET'])
 def get_questionaire():
-    # Accessing the 'questionnaire' collection
+    # เข้าถึงคอลเล็กชัน 'questionaire'
     questionaire_collection = db['questionaire']
-    # Retrieving all documents from the collection
+    # ค้นหาเอกสารทั้งหมดในคอลเล็กชัน
     result = questionaire_collection.find({})
-    # Building response data
+    # สร้างข้อมูลการตอบกลับ
     questionaire_data = []
     for item in result:
         questionaire_data.append({
             'question_ID': item.get('question_ID'),
             'question': item.get('question')
         })
-    return jsonify({'questionaire': questionaire_data}), 200
+    # แปลงข้อมูลเป็น JSON ด้วย json.dumps() และส่งกลับไปยังผู้ใช้
+    return json.dumps({'questionaire': questionaire_data}, ensure_ascii=False), 200
+
 
 
 @app.route('/addquestion', methods=['POST'])
@@ -307,6 +310,32 @@ def userkiosk():
     except Exception as e:
         print(f"Error: {str(e)}")
         return jsonify({'error': 'Internal server error'}), 500
+    
+#--------------------------Display answer-------------------------#  
+@app.route('/GetAns', methods=['POST'])
+def GetAns():
+    try:
+       
+        data = request.json
+        user_ID = data.get('user_ID')
+    
+
+        if user_ID is None:
+            return jsonify({'error': 'User ID is missing'}), 400
+    
+        user_ID = int(user_ID)
+        
+        users_collection = mongo.mydb.answer
+        ans = users_collection.find({}, {'user_ID': 1, 'question_ID': 1, 'answer': 1, '_id': 0})
+        ans_list = list(ans)
+        
+        print(ans_list)
+        return jsonify({'result': ans_list}), 200
+
+    except Exception as e:
+        print(f"Error: {str(e)}")
+        return jsonify({'error': 'Internal server error'}), 500
+    
 
 #--------------Display user detail on ShowInfo page--------------#   
 @app.route('/getUserDetails', methods=['GET'])

@@ -3,14 +3,9 @@ import Sidebar from "../Components/sidebar/Sidebar";
 import "./Home.css";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons'
 import HeaderPage from "../Components/header/HeaderPage";
-//import { Outlet  } from 'react-router-dom';
 import {  useState } from "react";
-import Dashboard from '../Page/Dashboard';
-//import Dashboard from '../Page/Dashboard';
-//import Editpage from '../Page/Editpage';
 const { Sider, Header} = Layout;
-//import App from '../App';
-function HeadPage() {
+function HeadPage ({ children }) {
      {/* 
   const [AdminDetail, setAdminDetail] = useState(null);
 
@@ -69,7 +64,7 @@ function HeadPage() {
             <HeaderPage />
          </Header>
          <div className ="content">
-          
+         {children}
          </div>
       </Layout> 
      

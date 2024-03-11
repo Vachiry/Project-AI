@@ -1,0 +1,47 @@
+
+.site-layout {   
+    margin: 0px;
+    padding: 0px;
+
+}
+
+.content {
+    margin-top: 1px;
+
+}
+
+.changeto{
+    color:#fff;
+    
+}
+
+.Fonthead {
+    font-size: 20px;
+    color: #22355c;
+    font-weight: 500;
+    font-family: "poppins", sans-serif;
+   
+}
+
+.subtext {
+    font-size: 12px;
+    margin-top: 10px;
+    color: #747474;
+    font-weight: 200;
+    font-family: "poppins", sans-serif;
+
+}
+
+.card {
+    margin-top:20px;
+
+}
+.divider {
+    border-top: 0.5px solid #D4D3D3; /* Adjust the style as needed */
+    margin-top: 17px; /* Add spacing if necessary */
+  }
+
+.space {
+   
+
+}

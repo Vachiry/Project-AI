@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 function NavBar() {
       const navigate = useNavigate();
-      const navtext =  "โรงพยาบาลพระจอมเกล้า \nKing's Monkut Hospital";   
+      const navtext =  "โรงพยาบาลพระจอมเกล้า \nKing's Mongkut Hospital";   
 
       const goToHomeScreen = () => {
         try {

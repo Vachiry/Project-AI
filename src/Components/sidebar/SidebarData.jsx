@@ -15,8 +15,6 @@ import '../Home.css';
            icon: <div style={{ color: '#fff' }}><AppstoreOutlined /></div>,
            label: <div className="changeto">Dashboard</div>,
            path:'/Dashboard'
-
-
      },
      {
            key: '2',
