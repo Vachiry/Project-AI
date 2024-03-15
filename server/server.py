@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, render_template, url_for, Blueprint, redirect, session, abort;
 from flask_pymongo import PyMongo
 from bson import ObjectId
-from pymongo import MongoClient
+from pymongo import MongoClient , ReturnDocument
 import json
 from flask_cors import CORS
 import jwt
@@ -80,23 +80,28 @@ def create_user():
 
 
 
-@app.route('/questionaire', methods=['GET'])
-def get_questionaire():
-    # เข้าถึงคอลเล็กชัน 'questionaire'
-    questionaire_collection = db['questionaire']
-    # ค้นหาเอกสารทั้งหมดในคอลเล็กชัน
-    result = questionaire_collection.find({})
-    # สร้างข้อมูลการตอบกลับ
-    questionaire_data = []
-    for item in result:
-        questionaire_data.append({
-            'question_ID': item.get('question_ID'),
-            'question': item.get('question')
-        })
-    # แปลงข้อมูลเป็น JSON ด้วย json.dumps() และส่งกลับไปยังผู้ใช้
-    return json.dumps({'questionaire': questionaire_data}, ensure_ascii=False), 200
-
-
+@app.route('/questionaire', methods=['GET', 'PUT'])
+def handle_questionaire():
+    if request.method == 'GET':
+        # Handle GET request to retrieve questionaire data
+        questionaire_collection = db['questionaire']
+        result = questionaire_collection.find({})
+        questionaire_data = [{'question_ID': item.get('question_ID'), 'question': item.get('question')} for item in result]
+        return json.dumps({'questionaire': questionaire_data}, ensure_ascii=False), 200
+    
+    elif request.method == 'PUT':
+        # Handle POST request to create new questionaire entry
+        request_data = request.json
+        question_ID = request_data.get('question_ID')
+        new_question = request_data.get('question')
+        
+        if not question_ID or not new_question:
+            return jsonify({'error': 'Missing question_ID or question in request body'}), 400
+        
+        questionaire_collection = db['questionaire']
+        questionaire_collection.insert_one({'question_ID': question_ID, 'question': new_question})
+        
+        return jsonify({'message': 'New question created successfully'}), 201
 
 @app.route('/addquestion', methods=['POST'])
 def create_question():
@@ -412,26 +417,30 @@ def get_question():
 
 
 
-
-
-
-
-
-
 #--------------------------Model---------------------------#   
 @app.route('/Model', methods=['POST'])
 def Model():
     try:
-        
-        audio_file = request.files['audio']
-        print(audio_file)
-        if audio_file:
+        audiofile = request.files['audio']
+        data = request.form.get('data')
+        user_ID = None
+        Question_ID = None
+
+        if data:
+            data = json.loads(data)
+            user_ID = data.get('user_ID')
+            Question_ID = data.get('Question_ID')
+            print(user_ID)
+            print(Question_ID)
+        if audiofile:
             # Save the audio file to a specific location
-            path = './Audio/'
-            if not os.path.exists(path):
-                os.makedirs(path)
-            audio_path = os.path.join(path, 'audio.wav')
-            audio_file.save(audio_path)
+            unique_filename = str(uuid.uuid4()) + '.wav'
+            folder_path = f'./Audio/'
+            if not os.path.exists(folder_path):
+                os.makedirs(folder_path)
+            print('save')
+            audio_path = os.path.join(folder_path, unique_filename)
+            audiofile.save(audio_path)
         MODEL_NAME = "biodatlab/whisper-th-medium-combined"
         lang = "th"
 
@@ -454,11 +463,22 @@ def Model():
         result = {
             'transcriptions':transcriptions
         }
+
+        # Accessing the 'users' collection
+        answer_collection = db['answer']
+
+        answer_data = {
+            'user_ID' : user_ID,
+            'question_ID': Question_ID,
+            'answer': transcriptions,
+            'path': audio_path,
+        }
+        answer_collection.insert_one(answer_data)
         return jsonify({'text': result}), 200
     except Exception as e:
         print(f"Error: {str(e)}")
         return jsonify({'error': str(e)}), 500
-    
+
 
 
 @app.route('/api/users', methods=['GET'])

@@ -55,6 +55,46 @@
   }
   
   .custom-data-table .rdt_Selected {
-    background-color: #CDDDF0 ; /* Set background color for selected rows */
-    //color: red; /* Set text color for selected rows */
+    background-color: #CDDDF0 ; 
+
   }
+
+  .btn-primary-edit {
+    background-color: #1E3561; 
+    border-radius: 5px;
+    color: white; 
+    padding: 8px 16px; 
+    cursor: pointer; 
+    margin-right: 8px; 
+  }
+  
+  .btn-primary-delete {
+    background-color: #BD2E2E;
+    border-radius: 5px; 
+    color: white; 
+    padding: 8px 16px; 
+    cursor: pointer; 
+  }
+
+
+  .search-box {
+    width: 270px;
+   /* Adjust width as needed */
+    padding: 3px; /* Adjust padding as needed */
+    border: 2px solid #989898; /* Border style */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    outline: none; /* Remove outline on focus */
+  }
+  
+  .search-box::placeholder {
+    color: #989898 !important; /* Placeholder text color */
+  }
+  
+  /* Optional: Add hover and focus styles */
+  .search-box:hover,
+  .search-box:focus {
+    border-color: #007bff; /* Border color on hover/focus */
+  }
+
+  
