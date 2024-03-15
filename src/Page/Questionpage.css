@@ -15,7 +15,7 @@
     background-repeat: no-repeat;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  
+    position: relative;
 
 }
 
@@ -25,7 +25,7 @@
     align-items: center;
     justify-content: center;
     text-align: center ;
-  margin-top: 300px;
+    margin-top: 2px;
     background-color: #fff;
     width: 180px;
     height: 180px;
@@ -33,9 +33,9 @@
     position: absolute;
     border: 5px solid  #A71E10 ;
      transition: background-color 0.3s, border-color 0.3s;
-    
 
 }
+
 .ContainerRecorder:hover {
     background-color: #A71E10; /* Change background color on hover */
     /* Change border color on hover */
@@ -80,7 +80,6 @@ img.audio-recorder-mic
         background-color: #ffffffc5!important ;
         backdrop-filter: blur(3px);
     
-  
  }
 
 
@@ -97,14 +96,13 @@ audio
     align-items: center;
     justify-items: center;             
     position: absolute;
-    top: 150;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
+    margin-top: 300px;
+    
  
 }
 .QuestionStyled{
     text-align: center;
+
     
 }
 .QuestionStyled h1{
@@ -121,10 +119,10 @@ audio
     text-align: center;
     align-items: center;
     justify-items: center;
-    margin-top: 290px;
+    margin-top: 430px;
     gap: 80px;
     width:400px;
-    
+   
 }
 canvas {
   
@@ -142,14 +140,13 @@ img.audio.recorder-options {
     align-items: center;
     justify-content: center;
     justify-items: center;
-    position: absolute;
-    width: 100%;
-    height: 100vh;
-    top: 0;
-    left: 0;
+    position: relative;
+    flex-direction: column; 
+   
 }
 
 .QuestionContainer {
-    margin-top: 300px; /* Adjust the margin as needed */
+    margin-top: 10px; /* Adjust the margin as needed */
+   
+    
   }
-  

@@ -36,12 +36,25 @@
     margin-top:20px;
 
 }
-.divider {
-    border-top: 0.5px solid #D4D3D3; /* Adjust the style as needed */
-    margin-top: 17px; /* Add spacing if necessary */
-  }
 
-.space {
-   
+.btn-primary {
+    
+    color: blue;
+    
 
 }
+.column-name {
+  
+    font-size:15px;
+    font-weight: 50px; 
+    color: #1E3561;
+
+  }
+  .custom-data-table .rdt_TableRow:hover {
+    background-color: #CDDDF0; /* Set background color for hover effect */
+  }
+  
+  .custom-data-table .rdt_Selected {
+    background-color: #CDDDF0 ; /* Set background color for selected rows */
+    //color: red; /* Set text color for selected rows */
+  }

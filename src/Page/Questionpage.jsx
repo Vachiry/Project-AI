@@ -67,6 +67,7 @@ const Questionpage = () => {
     const [questions, setQuestions] = useState([]);
     const [Question_ID, setQuestion_ID] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [recordedText, setRecordedText] = useState('');
     const { user_ID } = useParams();
     const navigate = useNavigate();
 
@@ -152,6 +153,7 @@ const Questionpage = () => {
                   if (response.ok) {
                        const data = await response.json();
                        console.log(data)
+                       setRecordedText(data.text);
                        //setApiResponse(data.text);
                    } else {
                         const errorData = await response.json();
@@ -163,6 +165,7 @@ const Questionpage = () => {
                      console.error('Error during API call:', error);
               }
           };
+          
                  const GetAns = async () => {
                    try {
                         const response = await fetch('http://127.0.0.1:5000/GetAns', {
@@ -199,40 +202,57 @@ const Questionpage = () => {
     };
 
     const addAudioElement = (blob) => {
-        const url = URL.createObjectURL(blob);
-        const audio = document.createElement('audio');
-        audio.src = url;
-        audio.controls = true;
-        document.body.appendChild(audio);
-    };
+      const url = URL.createObjectURL(blob);
+      const audio = document.createElement('audio');
+      audio.src = url;
+      audio.controls = true;
+      
+      // Find the container where you want to append the audio element
+      const container = document.querySelector('.wrap');
+      if (container) {
+          container.appendChild(audio);
+      } else {
+          console.error('Container not found');
+      }
+  };
+ 
+    const handleNextQuestion = () => {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      setQuestion_ID(questions[currentQuestionIndex + 1]?.question_ID); // Update Question_ID when moving to the next question
+  };
+ {/*
+  const handlePreviousQuestion = () => {
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
+      setQuestion_ID(questions[currentQuestionIndex - 1]?.question_ID); // Update Question_ID when moving to the previous question
+  };  */}
 
+ {/*
     const handleNextQuestion = () => {
       setCurrentQuestionIndex((prevIndex) => {
         setQuestion_ID(questions[prevIndex + 1]?.question_ID); // Set the question_ID for the next question
-        return Math.min(prevIndex + 1, questions.length - 1);
+       
       });
+    }; */}
+   
+    const handlePreviousQuestion = () => {
+      if (currentQuestionIndex === 0) {
+        // If currentQuestionIndex is 0, navigate to Form
+        navigate(`/Form/${user_ID}`);
+        console.log("Navigate to Form");
+      } else {
+        // For other cases, decrement the currentQuestionIndex
+        setCurrentQuestionIndex(prevIndex => {
+          const newIndex = prevIndex - 1;
+          if (newIndex < 0) {
+            return 0; // Ensure the index doesn't go below 0
+          } else {
+            setQuestion_ID(questions[newIndex]?.question_ID); // Set the question_ID for the previous question
+            return newIndex;
+          }
+        });
+      }
     };
-    
-      const handlePreviousQuestion = () => {
-        if (currentQuestionIndex === 0) {
-          // If currentQuestionIndex is 0, navigate to Form
-          navigate(`/Form/${user_ID}`);
-          console.log("Navigate to Form");
-        } 
-        else if (currentQuestionIndex === 1) {
-          // If currentQuestionIndex is 1, navigate to the question at index 0
-          setCurrentQuestionIndex(0);
-        } 
-        else {
-          // For other cases, decrement the currentQuestionIndex
-          setCurrentQuestionIndex((prevIndex) => {
-            setQuestion_ID(questions[prevIndex - 1]?.question_ID); // Set the question_ID for the previous question
-            return Math.max(prevIndex - 1, 0);
-          
-          });
-        }
-      };
-    
+  
       
     const renderApiResponse = () => (
         <div>
@@ -240,6 +260,12 @@ const Questionpage = () => {
             <pre>{apiResponse}</pre>
             <pre>{JSON.stringify(apiResponse, null, 2)}</pre>
         </div>
+    );
+    const renderRecordedText = () => (
+      <div>
+        <h2>Recorded Text:</h2>
+        <pre>{recordedText}</pre>
+      </div>
     );
 
     useEffect(() => {
@@ -257,44 +283,43 @@ const Questionpage = () => {
               <NavBar />
      
                  <div>
-                     <div className="main-bg-question">
-                     
-                         {renderSidebar()}
-      
-         </div>
-          <div className="wrap">
-            <div className="ContainerRecorder">
-              <AudioRecorder
-                onRecordingComplete={handleRecordingComplete}
-                recorderControls={recorderControls}
-                showVisualizer={true}
-              />
-              {apiResponse && renderApiResponse()}
-            </div>
-            <div>
-              {currentQuestion && (
-                 <div className="QuestionContainer">
-                <div className="QuestionStyled">
-                  <h1>{currentQuestion.question}</h1>
-                  {console.log(Question_ID)}
-                  </div>
-                  <div className="ButtonStyled">
-                    <Button onClick={handlePreviousQuestion} disabled={currentQuestionIndex === 0}>
-                      ย้อนกลับ
-                    </Button>
-                    <Button onClick={handleNextQuestion}>ถัดไป</Button>
-                  </div>
-                </div>
-              )}
-              {currentQuestionIndex === questions.length && (
-                                <div>
-                                    <button onClick={GetAns}>Finish</button>
-                                    <button onClick={Logout}>Logout</button>
-                                </div>
-                            )}
-            </div>
-          </div>
-        </div>
+                                  <div className="main-bg-question">
+                                        {renderSidebar()}
+                                             <div className="wrap">
+                                                      <div className="ContainerRecorder">
+                                                      <AudioRecorder
+                                                       onRecordingComplete={handleRecordingComplete}
+                                                       recorderControls={recorderControls}
+                                                       showVisualizer={true}
+                                                       />
+                                                       {apiResponse && renderApiResponse()}
+                                                       {recordedText && renderRecordedText()}
+                                                       </div>
+                                                       
+                                                        {currentQuestion && (
+                                                              <div className="QuestionContainer">
+                                                                   <div className="QuestionStyled">
+                                                                    <h1>{currentQuestion.question}</h1>
+                                                                    {console.log(Question_ID)}
+                                                              </div>
+                                                        </div>
+                                                        )}
+                                                        <div className="ButtonStyled">
+                                                                      <Button onClick={handlePreviousQuestion} disabled={currentQuestionIndex === 0}>
+                                                                      ย้อนกลับ
+                                                                       </Button>
+                                                                       <Button onClick={handleNextQuestion}>ถัดไป</Button>
+                                                         
+                                                         {currentQuestionIndex === questions.length && (
+                                                        <div>
+                                                               <button onClick={GetAns}>Finish</button>
+                                                               <button onClick={Logout}>Logout</button>
+                                                        </div>
+                                                         )}
+                                                        </div>
+                                             </div>
+                                  </div>
+                 </div>
         
       </>
     );
