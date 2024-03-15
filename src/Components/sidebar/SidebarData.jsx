@@ -41,7 +41,17 @@ import '../Home.css';
 
 
        },
+       {
+            key: '5',
+            icon: <div style={{ color: '#fff' }}><LogoutOutlined /></div>,
+            label: <div className="changeto">Logout</div>,
 
+
+  }
+
+
+]
+      {/*
        {
              key: '5',
              icon: <div style={{ color: '#fff' }}><InfoCircleOutlined/></div>,
@@ -56,14 +66,5 @@ import '../Home.css';
               label: <div className="changeto">Setting</div>,
               path:'/Setting'
 
-      },
-      {
-                key: '7',
-                icon: <div style={{ color: '#fff' }}><LogoutOutlined /></div>,
-                label: <div className="changeto">Logout</div>,
-
-
-      }
-
-
-    ]
+      }, */}
+    

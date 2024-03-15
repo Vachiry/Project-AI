@@ -1,18 +1,24 @@
 import { useState, useEffect } from 'react';
-import { Card, Modal, Input } from 'antd';
+import { Card, Modal, Input, Button } from 'antd';
 import './Editpage.css';
 import DataTable from "react-data-table-component";
 
+import { PlusOutlined } from '@ant-design/icons';
 const Editpage = () => {
    
     const [questions, setQuestions] = useState([]);
     const [filteredQuestion, setfilteredQuestion] = useState([]);
     const [search, setSearch] = useState("");
     const [isEditing, setIsEditing] = useState(false);
+    const [isAdding, setIsAdding] = useState(false); 
     const [editedQuestion, setEditedQuestion] = useState({
          question_ID: '', 
          question: '' });
 
+    const [newQuestion, setNewQuestion] = useState({
+            question_ID: '',
+            question: ''
+        });
     //--------------Get question from database and show----------------//
     useEffect(() => {
         const getAPI = async () => {
@@ -62,7 +68,6 @@ const Editpage = () => {
         }
     ];
     
-
     const handleEdit = (row) => {
         setEditedQuestion({
             question_ID: row.question_ID,
@@ -93,51 +98,78 @@ const Editpage = () => {
         }
     };
 
-    const handleSave = async (event) => {
-        event.preventDefault(); // Prevent the default form submission behavior
-        
-        // Check if editedQuestion is not undefined and has both question_ID and question properties
-        if (editedQuestion && editedQuestion.question_ID && editedQuestion.question) {
-            try {
-                const response = await fetch(`http://127.0.0.1:5000/questionaire`,  {
-                    method: 'PUT', // Use PUT method for updating existing question
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(editedQuestion),
+    const handleSave = async () => {
+        try {
+            const response = await fetch(`http://127.0.0.1:5000/questionaire`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(editedQuestion),
+            });
+            if (response.ok) {
+                const updatedQuestion = await response.json();
+                const updatedQuestions = questions.map(q => {
+                    if (q.question_ID === updatedQuestion.question_ID) {
+                        return updatedQuestion;
+                    } else {
+                        return q;
+                    }
+                });
+                setQuestions(updatedQuestions);
+                setfilteredQuestion(updatedQuestions);
+                setIsEditing(false);
+                window.alert('Question updated successfully.');
+            } else {
+                throw new Error('Failed to save edited question');
+            }
+        } catch (error) {
+            console.error('Error saving edited question:', error);
+            window.alert('Error saving edited question. Please try again.');
+        }
+    };
+
+    const handleAddQuestion = () => {
+        setIsAdding(true); // Show the modal for adding question
+    }
+
+    const handleAddQuestionSave = async () => {
+        // Check if the question ID already exists
+        const isQuestionIdExists = questions.some(q => q.question_ID === newQuestion.question_ID);
+        if (isQuestionIdExists) {
+            window.alert('Question ID already exists. Please use a different one.');
+            return;
+        }
+    
+        try {
+            const response = await fetch(`http://127.0.0.1:5000/addquestion`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newQuestion), // Use newQuestion state for new question
+            });
+            if (response.ok) {
+                setIsAdding(false); // Hide the modal after successfully adding question
+                
+                // Fetch updated data after adding question
+                const updatedQuestions = [...questions, newQuestion]; // Add the new question to the existing questions array
+                setQuestions(updatedQuestions);
+                setfilteredQuestion(updatedQuestions);
+    
+                // Clear the newQuestion state
+                setNewQuestion({
+                    question_ID: '',
+                    question: ''
                 });
     
-                console.log('Response:', response); // Log the response object
-                
-                if (response.ok) {
-                    // Update the state with the new question data
-                    const updatedQuestion = await response.json();
-                    console.log('Updated Question:', updatedQuestion); // Log the updated question data
-                    
-                    // Update the questions array in state with the updated question
-                    const updatedQuestions = questions.map(q => {
-                        if (q.question_ID === updatedQuestion.question_ID) {
-                            return updatedQuestion;
-                        } else {
-                            return q;
-                        }
-                    });
-    
-                    setQuestions(updatedQuestions);
-                    setfilteredQuestion(updatedQuestions);
-                    setIsEditing(false);
-                } else {
-                    const errorData = await response.json();
-                    console.error('Failed to save edited question:', errorData.error);
-                    window.alert(`Failed to save edited question: ${errorData.error}`);
-                }
-            } catch (error) {
-                console.error('Error saving edited question:', error);
-                window.alert('Error saving edited question. Please try again.');
+                window.alert('Question added successfully.');
+            } else {
+                throw new Error('Failed to add question');
             }
-        } else {
-            console.error('editedQuestion is not properly defined.');
-            window.alert('Please provide both question ID and question text.');
+        } catch (error) {
+            console.error('Error adding question:', error);
+            window.alert('Error adding question. Please try again.');
         }
     };
 
@@ -167,6 +199,12 @@ const Editpage = () => {
                 </div>
             </div>
             <Card style={{ padding: '30px' }} className='card'>
+                <Button type="primary" 
+                 icon={<PlusOutlined />}
+                 style= {{ background: '#4f87d6', borderColor: '#4f87d6' } }
+                onClick={handleAddQuestion}>Add Question</Button> 
+
+
                 <DataTable columns={columns} data={filteredQuestion} 
                 pagination 
                 fixedHeader
@@ -189,10 +227,14 @@ const Editpage = () => {
                  title="Edit Question"
                  visible={isEditing}
                  okText="Save"
+                 okButtonProps={{ style: { background: '#1890ff', borderColor: '#1890ff' , top:'35px'} }} // Set button background and border color
+                 cancelButtonProps={{ style: { background: '#f9f9f9', borderColor: '#1890ff',top:'35px' } }} // Set button background and border color
                  onCancel={() => {
                     setIsEditing(false);
                  }}
                  onOk={handleSave}
+                
+                 
                  >
                     <Input 
                         value={editedQuestion.question_ID} 
@@ -202,6 +244,7 @@ const Editpage = () => {
                                 question_ID: e.target.value
                             }));
                         }}
+                        style={{ width: '100%', marginBottom: '10px' ,  padding: '10px', }}
                     />
                     <Input 
                         value={editedQuestion.question}  
@@ -211,13 +254,43 @@ const Editpage = () => {
                                 question: e.target.value
                             }));
                         }}
+                        style={{
+                            width: '100%',
+                            padding: '10px', 
+                          
+                        }}
                     />
-                  
-            </Modal> 
+                     </Modal> 
+                       {/* Modal for adding a new question */}
+                <Modal
+                    title="Add Question"
+                    visible={isAdding} // Show this modal when isAdding is true
+                    okText="Save"
+                    okButtonProps={{ style: { background: '#1890ff', borderColor: '#1890ff' , top:'35px'} }} // Set button background and border color
+                 cancelButtonProps={{ style: { background: '#f9f9f9', borderColor: '#1890ff',top:'35px' } }} 
+                    onCancel={() => {
+                        setIsAdding(false);
+                    }}
+                    onOk={handleAddQuestionSave} // Call handleAddQuestionSave when clicking Save
+                >
+                    <Input
+                        placeholder="Enter Question ID"
+                        value={newQuestion.question_ID}
+                        onChange={(e) => setNewQuestion((prev) => ({ ...prev, question_ID: e.target.value }))}
+                        style={{ width: '100%', marginBottom: '10px' ,  padding: '10px', }}
+                        
+                    />
+                    <Input
+                        placeholder="Enter Question"
+                        value={newQuestion.question}
+                        onChange={(e) => setNewQuestion((prev) => ({ ...prev, question: e.target.value }))}
+                        style={{ width: '100%',padding: '10px', }}
+                    />
+                </Modal>
             </Card>
-           
         </>
     );
 }
+
 
 export default Editpage;

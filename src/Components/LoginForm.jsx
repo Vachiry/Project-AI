@@ -37,7 +37,8 @@ const LoginForm = () => {
           console.log(response);
 
           //setAdminName(username);
-          navigate(`/HeadPage?admin_username=${username}`);
+          //navigate(`/HeadPage?admin_username=${username}`);
+          navigate('/Dashboard');
         })
         .catch(function (error) {
           console.log(error, 'error');

@@ -33,7 +33,7 @@ export default function Sidebar () {
 
 
        
-       <Menu mode="inline" defaultSelectedKeys={['0']}  className="menu-bar" >
+       <Menu mode="inline"  className="menu-bar" >
        {SidebarData.map((item, index) => {
        return(
             <Menu.Item  key={index}  style={{ backgroundColor: hoveredItems[index] ? '#2a2a51' : 'transparent',}}

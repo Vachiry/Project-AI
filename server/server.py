@@ -90,18 +90,19 @@ def handle_questionaire():
         return json.dumps({'questionaire': questionaire_data}, ensure_ascii=False), 200
     
     elif request.method == 'PUT':
-        # Handle POST request to create new questionaire entry
+        # Handle PUT request to update an existing question
         request_data = request.json
         question_ID = request_data.get('question_ID')
         new_question = request_data.get('question')
-        
-        if not question_ID or not new_question:
-            return jsonify({'error': 'Missing question_ID or question in request body'}), 400
-        
-        questionaire_collection = db['questionaire']
-        questionaire_collection.insert_one({'question_ID': question_ID, 'question': new_question})
-        
-        return jsonify({'message': 'New question created successfully'}), 201
+    
+    if not question_ID or not new_question:
+        return jsonify({'error': 'Missing question_ID or question in request body'}), 400
+    
+    questionaire_collection = db['questionaire']
+        # Update the existing document with the given question_ID
+    questionaire_collection.update_one({'question_ID': question_ID}, {'$set': {'question': new_question}})
+     
+    return jsonify({'message': 'Question updated successfully'}), 200
 
 @app.route('/addquestion', methods=['POST'])
 def create_question():
@@ -114,7 +115,12 @@ def create_question():
        
         question_ID = data.get('question_ID')
         question = data.get('question')
-    
+        
+        # Check if the question_ID already exists
+        existing_question = questionaire_collection.find_one({'question_ID': question_ID})
+        if existing_question:
+            return jsonify({'error': 'Question ID already exists'}), 400
+        
         if 'question' not in data:
             return jsonify({'error': 'Missing question field in the request data'}), 400
     

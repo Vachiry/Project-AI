@@ -13,7 +13,7 @@ function HeaderPage( ) {
   return (
     <Flex align= "center" justify="space-between" >
          <Typography.Title level={3} type="secondary">
-                     Welcome back, 
+                     Welcome back, Enjoy! 
          </Typography.Title>
          <Flex align="center" gap="2rem">
             <Search placeholder="Search Dashboard" allowClear />
