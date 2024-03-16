@@ -4,64 +4,66 @@ import NavBar from '../Components/NavBar';
 import { AudioRecorder, useAudioRecorder } from 'react-audio-voice-recorder';
 import './Questionpage.css';
 import Button from '../Components/Button';
-import {  makeStyles } from '@material-ui/core';
+// import {  makeStyles } from '@material-ui/core';
 import { useParams } from 'react-router-dom';
 
-const useStyles = makeStyles((theme) => ({
-    sidebar: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      padding: theme.spacing(3),
+// const useStyles = makeStyles((theme) => ({
+//     sidebar: {
+//       display: 'flex',
+//       flexDirection: 'column',
+//       alignItems: 'center',
+//       padding: theme.spacing(3),
       
-    },
+//     },
 
-    sidebarStep: {
-      width: theme.spacing(5),
-      height: theme.spacing(5),
-      borderRadius: '50%',
-      backgroundColor: 'grey',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      cursor: 'pointer',
-      color: 'white',
-      marginBottom: theme.spacing(2),
-      marginRight: theme.spacing(8), 
+//     sidebarStep: {
+//       width: theme.spacing(5),
+//       height: theme.spacing(5),
+//       borderRadius: '50%',
+//       backgroundColor: 'grey',
+//       display: 'flex',
+//       justifyContent: 'center',
+//       alignItems: 'center',
+//       cursor: 'pointer',
+//       color: 'white',
+//       marginBottom: theme.spacing(2),
+//       marginRight: theme.spacing(8), 
     
-    },
-    completedStep: {
-      backgroundColor: '#294597',
-    },
+//     },
+//     completedStep: {
+//       backgroundColor: '#294597',
+//     },
 
-    stepper: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      padding: theme.spacing(3, 0),
-    },
+//     stepper: {
+//       display: 'flex',
+//       justifyContent: 'center',
+//       alignItems: 'center',
+//       padding: theme.spacing(3, 0),
+//     },
 
-    step: {
-      width: theme.spacing(4),
-      height: theme.spacing(4),
-      borderRadius: '50%',
-      backgroundColor: '#294597',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      cursor: 'pointer',
-      color: 'white',
-      opacity: 0.5, // Set initial opacity for incomplete steps
-      '&.active': {
-        opacity: 1, // Set opacity to 1 for the active step
-      },
+//     step: {
+//       width: theme.spacing(4),
+//       height: theme.spacing(4),
+//       borderRadius: '50%',
+//       backgroundColor: '#294597',
+//       display: 'flex',
+//       justifyContent: 'center',
+//       alignItems: 'center',
+//       cursor: 'pointer',
+//       color: 'white',
+//       opacity: 0.5, // Set initial opacity for incomplete steps
+//       '&.active': {
+//         opacity: 1, // Set opacity to 1 for the active step
+//       },
       
-    },
+//     },
     
-  }));
+//   }));
+
 
 
 const Questionpage = () => {
+
     const classes = useStyles();
     const [apiResponse, setApiResponse] = useState(null);
     const [questions, setQuestions] = useState([]);
@@ -70,6 +72,8 @@ const Questionpage = () => {
     const [recordedText, setRecordedText] = useState('');
     const { user_ID } = useParams();
     const navigate = useNavigate();
+
+    
 
     const recorderControls = useAudioRecorder(
         {

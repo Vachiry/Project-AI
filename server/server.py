@@ -14,11 +14,11 @@ import uuid;
 from bson import json_util
 
 app = Flask(__name__)
-CORS(app, supports_credentials=True, origins='http://127.0.0.1:5173', methods=['GET', 'POST'], headers=['Content-Type'])
+CORS(app, supports_credentials=True, origins=['http://localhost:5173/*'], methods=['GET', 'POST' , 'PUT' , 'DELETE'], headers=['Content-Type'])
 bcrypt = Bcrypt(app)
 
-mongo = MongoClient('mongodb+srv://safe32785:Nongsafe32785@cluster0.gjhysqb.mongodb.net/')
-db = mongo['mydb']
+mongo = MongoClient('mongodb+srv://bigboyzin88:lSktgRehKmm1gzJb@cluster0.blsdxre.mongodb.net/')
+db = mongo['AI_KHIM']
 
 @app.route("/")
 def index():
@@ -78,8 +78,6 @@ def create_user():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-
-
 @app.route('/questionaire', methods=['GET', 'PUT'])
 def handle_questionaire():
     if request.method == 'GET':
@@ -90,7 +88,7 @@ def handle_questionaire():
         return json.dumps({'questionaire': questionaire_data}, ensure_ascii=False), 200
     
     elif request.method == 'PUT':
-        # Handle POST request to create new questionaire entry
+        # Handle PUT request to update existing questionaire entry
         request_data = request.json
         question_ID = request_data.get('question_ID')
         new_question = request_data.get('question')
@@ -99,36 +97,52 @@ def handle_questionaire():
             return jsonify({'error': 'Missing question_ID or question in request body'}), 400
         
         questionaire_collection = db['questionaire']
-        questionaire_collection.insert_one({'question_ID': question_ID, 'question': new_question})
         
-        return jsonify({'message': 'New question created successfully'}), 201
+        # Check if the question with the given question_ID exists
+        existing_question = questionaire_collection.find_one({'question_ID': question_ID})
+        if not existing_question:
+            return jsonify({'error': f'Question with question_ID {question_ID} not found'}), 404
+        
+        # Update the existing question with the new question text
+        questionaire_collection.update_one({'question_ID': question_ID}, {'$set': {'question': new_question}})
+        
+        return jsonify({'message': f'Question with question_ID {question_ID} updated successfully'}), 200
+
+@app.route('/questionaire/<question_id>', methods=['DELETE'])
+def delete_question(question_id):
+    try:
+        # Get the question from the database
+        questionaire_collection = db['questionaire']
+        question = questionaire_collection.find_one({'question_ID': question_id})
+
+        # If the question exists, delete it
+        if question:
+            questionaire_collection.delete_one({'question_ID': question_id})
+            return jsonify({'message': f'Question with ID {question_id} deleted successfully'}), 200
+        else:
+            return jsonify({'error': f'Question with ID {question_id} not found'}), 404
+    except Exception as e:
+        return jsonify({'error': f'An error occurred: {str(e)}'}), 500
+
 
 @app.route('/addquestion', methods=['POST'])
 def create_question():
     try:
-       
         questionaire_collection = db['questionaire']
-        
-      
         data = request.json
-       
         question_ID = data.get('question_ID')
         question = data.get('question')
     
         if 'question' not in data:
             return jsonify({'error': 'Missing question field in the request data'}), 400
     
-        questionaire_data = {
-            'question_ID' : question_ID,
-            'question': question}
+        questionaire_data = {'question_ID' : question_ID,'question': question}
 
         result =  questionaire_collection.insert_one(questionaire_data)
         return jsonify({'message': 'Question added successfully'}), 201
 
     except Exception as e:
-     
         return jsonify({'error': f'An error occurred: {str(e)}'}), 500
-
 
 @app.route('/admin', methods=['GET'])
 def get_admin():
@@ -149,8 +163,6 @@ def get_admin():
         })  # Append the entire document
     return jsonify({'admin': admin_data}), 200
 
-
-
 @app.route('/answer', methods=['GET'])
 def get_answer():
 
@@ -169,8 +181,6 @@ def get_answer():
         })  # Append the entire document
     return jsonify({'answer': answer_data}), 200 , {'Content-Type': 'application/json; charset=utf-8'}
 
-
-
 @app.route('/user_bloodpressure', methods=['GET'])
 def get_user_bloodpressure():
     # Accessing the 'admin' collection
@@ -186,7 +196,6 @@ def get_user_bloodpressure():
             'date': item.get('date')
         })  # Append the entire document
     return jsonify({'bloodpressure': user_bloodpressure_data}), 200
-
 
 #------------------------Login Admin------------------------#  
 SECRET_KEY = "HospitalKiosk"
@@ -227,7 +236,6 @@ def SignIn():
         print(f"Error: {str(e)}")
         return jsonify({'error': str(e)}), 500
 
-
 @app.route('/getAdmindetail', methods=['GET'])
 def get_Admindetail():
     try:
@@ -250,11 +258,7 @@ def get_Admindetail():
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
-
-
-
-
+    
 #------------------------Register Admin------------------------#     
 @app.route('/Register', methods=['POST'])
 def Register():
@@ -341,7 +345,6 @@ def GetAns():
         print(f"Error: {str(e)}")
         return jsonify({'error': 'Internal server error'}), 500
     
-
 #--------------Display user detail on ShowInfo page--------------#   
 @app.route('/getUserDetails', methods=['GET'])
 def get_user_details():
@@ -378,8 +381,6 @@ def get_user_details():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-
-
 #--------------Display question on question page--------------#   
 @app.route('/getquestion', methods=['GET'])
 def get_question():
@@ -414,8 +415,6 @@ def get_question():
     except Exception as e:
         # Handle other exceptions, such as database errors
         return jsonify({'error': str(e)}), 500
-
-
 
 #--------------------------Model---------------------------#   
 @app.route('/Model', methods=['POST'])
@@ -478,8 +477,6 @@ def Model():
     except Exception as e:
         print(f"Error: {str(e)}")
         return jsonify({'error': str(e)}), 500
-
-
 
 @app.route('/api/users', methods=['GET'])
 def get_apiusers():

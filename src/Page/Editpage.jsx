@@ -17,9 +17,7 @@ const Editpage = () => {
     useEffect(() => {
         const getAPI = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:5000/questionaire', {
-                    method: 'GET',
-                });
+                const response = await fetch('http://127.0.0.1:5000/questionaire', {method: 'GET',});
 
                 if (response.ok) {
                     const responseData = await response.json();
@@ -69,6 +67,7 @@ const Editpage = () => {
             question: row.question
         });     
         setIsEditing(true);
+        
     };
 
     const handleDelete = async (questionId) => {
@@ -82,6 +81,7 @@ const Editpage = () => {
                 setQuestions(questions.filter(question => question.question_ID !== questionId));
                 setfilteredQuestion(filteredQuestion.filter(question => question.question_ID !== questionId));
                 window.alert(`Question with ID ${questionId} deleted successfully.`);
+                window.location.reload();
             } else {
                 const errorData = await response.json();
                 console.error('Failed to delete question:', errorData.error);
@@ -126,6 +126,7 @@ const Editpage = () => {
                     setQuestions(updatedQuestions);
                     setfilteredQuestion(updatedQuestions);
                     setIsEditing(false);
+                    window.location.reload();
                 } else {
                     const errorData = await response.json();
                     console.error('Failed to save edited question:', errorData.error);
@@ -182,7 +183,6 @@ const Editpage = () => {
                    placeholder= ' Search here... '
                    value={search}
                    onChange={(e) => setSearch(e.target.value)}
-             
                    />}
                />
                <Modal

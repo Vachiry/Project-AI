@@ -1,11 +1,11 @@
 from pymongo import MongoClient
 
 # เชื่อมต่อ MongoDB
-mongo = MongoClient('mongodb+srv://safe32785:Nongsafe32785@cluster0.gjhysqb.mongodb.net/')
-db = mongo['mydb']
+mongo = MongoClient('mongodb+srv://bigboyzin88:lSktgRehKmm1gzJb@cluster0.blsdxre.mongodb.net/')
+db = mongo['AI_KHIM']
 
 # เลือก collection "users"
-users_collection = mongo.mydb.users
+users_collection = mongo.AI_KHIM.users
 # ดึงข้อมูล users
 user_data = users_collection.find()
 # แสดงข้อมูลผู้ใช้
