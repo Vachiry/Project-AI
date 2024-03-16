@@ -12,6 +12,8 @@ import torch
 from transformers import pipeline
 import uuid;
 from bson import json_util
+from datetime import datetime
+import pytz
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True, origins='http://127.0.0.1:5173', methods=['GET', 'POST'], headers=['Content-Type'])
@@ -431,6 +433,9 @@ def Model():
         data = request.form.get('data')
         user_ID = None
         Question_ID = None
+        current_time = datetime.utcnow()
+        gmt7 = pytz.timezone('Asia/Bangkok')
+        current_time_gmt7 = datetime.now(gmt7)
 
         if data:
             data = json.loads(data)
@@ -478,6 +483,7 @@ def Model():
             'question_ID': Question_ID,
             'answer': transcriptions,
             'path': audio_path,
+            'timestamp': current_time_gmt7
         }
         answer_collection.insert_one(answer_data)
         return jsonify({'text': result}), 200
