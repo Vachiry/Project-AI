@@ -17,7 +17,7 @@ app = Flask(__name__)
 CORS(app, supports_credentials=True, origins=['http://localhost:5173/*'], methods=['GET', 'POST' , 'PUT' , 'DELETE'], headers=['Content-Type'])
 bcrypt = Bcrypt(app)
 
-mongo = MongoClient('mongodb+srv://bigboyzin88:lSktgRehKmm1gzJb@cluster0.blsdxre.mongodb.net/')
+mongo = MongoClient('')
 db = mongo['AI_KHIM']
 
 @app.route("/")
