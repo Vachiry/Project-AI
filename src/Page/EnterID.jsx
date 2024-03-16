@@ -1,4 +1,4 @@
-import './EnterID.css';
+import '..StlyeSheet/';
 // import Button from '../Components/Button';
 import NavBar from '../Components/NavBar';
 import { useNavigate } from 'react-router-dom';
