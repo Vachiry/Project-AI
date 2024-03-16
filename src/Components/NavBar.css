@@ -1,5 +1,5 @@
 .navbar {
-    background-color: #162F1F;
+    background-color: #224C30;
     height: 100px;
     display: flex;
     justify-content: center;
@@ -17,12 +17,13 @@
 
 .logo {
     justify-content: center;
-    width: 60px;
-    height: 60px;
+    width: 50px !important;
+    height: 50px !important;
     margin-bottom: 15px;
-    margin-left: 14px;
+    margin-left: 20px !important;
     align-items: center;
     cursor:pointer;
+    
 }
 
 .nav-headtext {
@@ -39,3 +40,8 @@
     line-height: 30px;
 }
 
+.icon {
+
+
+    
+}

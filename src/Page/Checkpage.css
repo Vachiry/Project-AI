@@ -1,0 +1,76 @@
+.site-layout {   
+    margin: 0px;
+    padding: 0px;
+
+}
+
+.content {
+    margin-top: 1px;
+
+}
+
+.changeto{
+    color:#fff;
+    
+}
+
+.Fonthead {
+    font-size: 20px;
+    color: #22355c;
+    font-weight: 500;
+    font-family: "poppins", sans-serif;
+   
+}
+
+.subtext {
+    font-size: 12px;
+    margin-top: 10px;
+    color: #747474;
+    font-weight: 200;
+    font-family: "poppins", sans-serif;
+
+}
+
+.card {
+    margin-top:20px;
+
+}
+
+.btn-primary {
+    
+    color: blue;
+    
+
+}
+.column-name {
+  
+    font-size:15px;
+    font-weight: 50px; 
+    color: #1E3561;
+
+  }
+  .custom-data-table .rdt_TableRow:hover {
+    background-color: #CDDDF0; /* Set background color for hover effect */
+  }
+  
+  .custom-data-table .rdt_Selected {
+    background-color: #CDDDF0 ; 
+
+  }
+
+  .btn-primary-edit {
+    background-color: #1E3561; 
+    border-radius: 5px;
+    color: white; 
+    padding: 8px 16px; 
+    cursor: pointer; 
+    margin-right: 8px; 
+  }
+  
+  .btn-primary-delete {
+    background-color: #BD2E2E;
+    border-radius: 5px; 
+    color: white; 
+    padding: 8px 16px; 
+    cursor: pointer; 
+  }

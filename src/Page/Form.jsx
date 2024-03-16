@@ -4,6 +4,7 @@ import Button from "../Components/Button";
 import { useNavigate } from "react-router-dom";
 import { GoArrowLeft } from "react-icons/go";
 import { FaThList } from "react-icons/fa";
+import { useParams } from 'react-router-dom';
 
 
 function Form() {
@@ -11,14 +12,19 @@ function Form() {
     const subtext = "แบบประเมิณต่อไปนี้เป็นการพูดแล้วอัดเสียง"
     const subtext2 = "หากท่านไม่ต้องการอัดเสียง กรุณาคลิกที่"
     const subtext3 = "เพื่อทำแบบประเมิณอาการเบื้องต้น"
-
+    const { user_ID } = useParams();
     const navigate = useNavigate();     
 
     const ShowInfo = () => {
         navigate("/ShowInfo")}
-    const QueestionForm = () => {
-        navigate("/QueestionForm")
-    }
+
+        const QuestionForm = () => {
+            navigate(`/Questionpage/${user_ID}`)
+        }
+    
+
+    const goToQuestionIcon = () => {
+        navigate("/QuestionPageIcon")}
 
     return(
         <>   
@@ -26,12 +32,12 @@ function Form() {
             <div className="main-bg-form">
             <div className="ArrowList">
                  <GoArrowLeft className="ArrowLeft" onClick={ShowInfo}/>
-                 <FaThList className="BoxList"/>
+                 <FaThList className="BoxList" onClick={goToQuestionIcon}/>
             </div>
             <div className="HeadtextForm">{text}</div>
             <div className="Subtext">{subtext}</div>
             <div className="Button">
-              <Button onClick={QueestionForm} >คลิกที่นี่เพื่อเริ่มต้น</Button>
+              <Button onClick={QuestionForm} >คลิกที่นี่เพื่อเริ่มต้น</Button>
  
             </div>
             <div className="TextBox">

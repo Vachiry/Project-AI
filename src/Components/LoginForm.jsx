@@ -10,7 +10,7 @@ const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     // You can add additional logic here if needed
@@ -26,15 +26,18 @@ const LoginForm = () => {
     } else {
       axios
         .post('http://127.0.0.1:5000/LogIn', {
-          email: email,
-          username: username,
-          password: password,
-        }, { withCredentials: true })
+         
+            email: email,
+            username: username,
+            password: password,
+          },
+      
+        )
         .then(function (response) {
           console.log(response);
-       
-          
-          navigate('/HeadPage');
+
+          //setAdminName(username);
+          navigate(`/HeadPage?admin_username=${username}`);
         })
         .catch(function (error) {
           console.log(error, 'error');

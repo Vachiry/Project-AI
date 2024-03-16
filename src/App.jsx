@@ -1,33 +1,61 @@
 //import "./App.css";
 import { useState } from 'react';
 import LoginForm from './Components/LoginForm'
-import Dashboard from './Page/Dashboard'
-import Editting from './Page/Editting'
-import HeadPage from './Components/HeadPage';
+
 import Register from "./Components/Register"
 import HomeScreen from "./Page/HomeScreen";
 import EnterID from "./Page/EnterID";
-import Form from "./Page/Form";
+import Form from './Page/Form';
 import ShowInfo from "./Page/ShowInfo";
-//import QueestionForm from "./page/QueestionForm";
-import { BrowserRouter,Routes,Route,} from "react-router-dom";
+import Questionpage from './Page/Questionpage';
+import TestAudio from './Page/TestAudio';
+import QuestionPageIcon from './Page/QuestionPageIcon';
+import { BrowserRouter,Routes,Route } from "react-router-dom";
+//import { BrowserRouter ,  Route,Routes } from 'react-router-dom';
+//import React from 'react';
+import Dashboard from './Page/Dashboard';
+import HeadPage from './Components/HeadPage';
+import Checkpage from './Page/Checkpage';
+import Editpage from './Page/Editpage';
 import '@fortawesome/fontawesome-svg-core/styles.css';
+import Recyclepage from './Page/Recyclepage';
+//import Sidebar from './Components/sidebar/Sidebar';
+import Testdrop from './Page/Testdrop';
+
+const RouteWithSidebar = ({ element }) => (
+  <HeadPage >
+    {element}
+  </HeadPage>
+);
 
 function App() {
+<<<<<<< HEAD
   const [user_IDs, setUserIDs] = useState("");
+=======
+    const [user_ID, setUser_ID] = useState("");
+    //const [username, setAdminName] = useState("");
+   
+>>>>>>> 98c94c6b08216e2d687127954901c573f992e98f
 
   return (
+    
     <>
-            <BrowserRouter>
-                <Routes>
-                  
-                    <Route exact path="/Login" element={<LoginForm />} />
-                    <Route exact path="/Register" element={<Register/>} />
-                    <Route exact path="/HeadPage" element={<HeadPage/>} />
+    <BrowserRouter>
+            
+            <Routes>
+                <Route path="/HeadPage" element={<HeadPage  />} />
+                 <Route path="/Editpage" element={<RouteWithSidebar element={<Editpage />} />} />
+                 <Route path="/Checkpage" element={<RouteWithSidebar  element={<Checkpage />} />} />
+                 <Route path="/Dashboard"  element={<RouteWithSidebar  element={<Dashboard />} />}/>
+                 <Route path="/Recyclepage" element={<RouteWithSidebar  element={<Recyclepage />} />} />
+                     
+                    <Route exact path="/Login" element={<LoginForm  />} />
+                    <Route exact path="/Register" element={<Register/>} />   
                     <Route exact path="/Dashboard" element={<Dashboard/>} />
-                    <Route exact path="/Editting" element={<Editting/>} />
+                   
                     
                     <Route exact path="/HomeScreen" element={<HomeScreen />} />
+<<<<<<< HEAD
                     <Route exact path="/Form" element={<Form/>} />
 
                     <Route path="/EnterID" element={<EnterID setUserIDs={setUserIDs} />} />
@@ -39,6 +67,19 @@ function App() {
 
                 </Routes>
            </BrowserRouter>
+=======
+                    <Route exact path="/EnterID" element={<EnterID setUser_ID={setUser_ID} />} />
+                    <Route exact path="/Form/:user_ID?" element={<Form/>} />
+                    <Route exact path="/ShowInfo" element={<ShowInfo user_ID={user_ID} />} />
+                    <Route exact path="/Questionpage/:user_ID" element={<Questionpage/>} />
+                    <Route exact path="/TestAudio" element={<TestAudio/>} />
+                    <Route exact path="/QuestionPageIcon" element={<QuestionPageIcon/>} />
+                    <Route exact path="/Testdrop" element={<Testdrop/>} />
+                      
+                    </Routes> 
+          
+        </BrowserRouter>       
+>>>>>>> 98c94c6b08216e2d687127954901c573f992e98f
     </>
    );
 }

@@ -1,4 +1,14 @@
+<<<<<<< HEAD
 import { useEffect, useState } from 'react';
+=======
+//import "../App.css";
+import  { useState, useEffect } from "react";
+import NavBar from "../Components/NavBar";
+import '../Page/ShowInfo.css';
+import Button from "../Components/Button";
+import { useNavigate } from "react-router-dom";
+import { GoArrowLeft } from "react-icons/go";
+>>>>>>> 98c94c6b08216e2d687127954901c573f992e98f
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import NavBar from '../Components/NavBar';
@@ -10,15 +20,38 @@ function ShowInfo({user_IDs}) {
     const Headtext = "sdasdasd";
     const navigate = useNavigate(); // นำเข้า useNavigate มาใช้งาน
 
+<<<<<<< HEAD
     const EnterID = () => {
         navigate("/EnterID")
     }
+=======
+function ShowInfo({user_ID}) {
+    
+    const Headtext =  "สวัสดีค่ะ";  
+    
+    const navigate = useNavigate();           
+    const EnterID = () => {
+    navigate("/EnterID")
+    }     
+
+    const goToForm = () => {
+        navigate(`/Form/${user_ID}`);
+        }     
+    
+    const [userDetails, setUserDetails] = useState(null);
+    
+    
+>>>>>>> 98c94c6b08216e2d687127954901c573f992e98f
 
     useEffect(() => {
         const fetchUserDetails = async () => {
             try {
                 const response = await axios.get(`http://127.0.0.1:5000/getUserDetails`, {
+<<<<<<< HEAD
                     params: { user_IDs }
+=======
+                    params: { user_ID }
+>>>>>>> 98c94c6b08216e2d687127954901c573f992e98f
                 });
                 setUserDetails(response.data.data);
             } catch (error) {
@@ -28,7 +61,15 @@ function ShowInfo({user_IDs}) {
         };
     
         fetchUserDetails();
+<<<<<<< HEAD
     }, [user_IDs]);
+=======
+    }, [user_ID]);
+
+    
+    console.log(userDetails); 
+    console.log(user_ID); 
+>>>>>>> 98c94c6b08216e2d687127954901c573f992e98f
 
     
     console.log(userDetails); 
@@ -36,6 +77,7 @@ function ShowInfo({user_IDs}) {
     
     return (
         <>
+<<<<<<< HEAD
             <NavBar /> {/* แสดง NavBar */}
             <div className="main-bg-ShowInfo">
                 <button className="ArrowLeft" onClick={EnterID}><GoArrowLeft /></button>
@@ -60,5 +102,32 @@ function ShowInfo({user_IDs}) {
             </div>
         </>
     );
+=======
+        <NavBar/> 
+        <div className="main-bg-ShowInfo">
+                  <button className="ArrowLeft" onClick={EnterID}><GoArrowLeft /></button>
+                  <div className="Headtext">{Headtext}</div>
+                  <div className="ContainerShowinfo">
+                        <div className="auth-wrapper">
+
+                        {userDetails && (
+                            <>
+                                <h1>User ID: {userDetails.user_ID}</h1>
+                                <h1>Name: {userDetails.user_name}</h1>
+                                <h1>Surname: {userDetails.user_surname}</h1>
+                                <h1>Sex: {userDetails.user_sex}</h1>
+                                <h1>Age: {userDetails.user_age}</h1>
+                             </>
+                                 )}
+                         </div>
+                     </div>
+                     <div className="Button">
+                              <Button onClick={goToForm}>ถัดไป</Button>
+                     </div>
+                 </div>
+             
+            </>   
+  );
+>>>>>>> 98c94c6b08216e2d687127954901c573f992e98f
 }
 export default ShowInfo;

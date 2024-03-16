@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+  
+}
+
+.main-bg-q{
+    background:url('../Image/hbg.jpg');
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.Container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+
+.ArrowLeft {
+    margin-top: 10px;
+    margin-left: 20px;
+    font-size: 28px;
+    color: #16391E;
+    cursor: pointer;
+    text-align: left;
+}

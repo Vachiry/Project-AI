@@ -4,12 +4,14 @@
    
 }
 
-
 .header {
     padding-top: 12px;
     background: #fff;
 }
-
+.header h1 {
+    text-align: center;
+    font-size: 50px;
+}
 .content {
     margin: 24px 16px;
     padding: 20px;
@@ -22,6 +24,14 @@
     Bottom: 0;
     top: 0;
 }
+.menu-content-link {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    font-size: 15px;
+    transation: all 0.5s;
+    width: 100%;
+  }
 
 .logo {
     justify-content: center;
@@ -48,18 +58,29 @@
     gap: 10px;
     font-weight: 500;
     background: #001529;
-   
   
 }
+/* Ensure that Menu.Item has 100% width */
+.ant-menu-item {
+    width: 100%;
+  }
+   
 
 .ant-menu-item-selected {
     background-color: #384369 !important;
     color: #fff !important;
     
 }
+  /* Set hover effect for the selected item */
+  .ant-menu-item-selected:hover {
+    background-color: #384369 !important;
+    color: #fff !important;
+  }
+
 
 .changeto{
     color:#fff;
+    
 }
 
 .header-icon {
@@ -69,9 +90,4 @@
     font-size: 20px;
     color: #001529;
     cursor:pointer;
-}
-
-.ant-btn::hover {
-    color: blue !important!iblue !important;
-    border-color: blue !important!;
 }
