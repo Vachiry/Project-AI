@@ -7,6 +7,7 @@ import Button from '../Components/Button';
 import {  makeStyles } from '@material-ui/core';
 import { useParams } from 'react-router-dom';
 
+
 const useStyles = makeStyles((theme) => ({
     sidebar: {
       display: 'flex',
@@ -70,6 +71,7 @@ const Questionpage = () => {
     const [recordedText, setRecordedText] = useState('');
     const { user_ID } = useParams();
     const navigate = useNavigate();
+    const [transcript, setTranscript] = useState('');
 
     const recorderControls = useAudioRecorder(
         {
@@ -151,10 +153,9 @@ const Questionpage = () => {
                   });
 
                   if (response.ok) {
-                       const data = await response.json();
-                       console.log(data)
-                       setRecordedText(data.text);
-                       //setApiResponse(data.text);
+                    const data = await response.json();
+                    console.log(data);
+                    setTranscript(data.text.transcriptions);
                    } else {
                         const errorData = await response.json();
                         console.error('API call failed:', errorData.error);
@@ -306,6 +307,8 @@ const Questionpage = () => {
                                                         </div>
                                                         )}
                                                         <div className="ButtonStyled">
+                                                        <h2>คำที่พูด:</h2>
+                                                        <pre>{transcript}</pre>
                                                                       <Button onClick={handlePreviousQuestion} disabled={currentQuestionIndex === 0}>
                                                                       ย้อนกลับ
                                                                        </Button>
