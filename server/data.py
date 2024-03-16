@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 
 # เชื่อมต่อ MongoDB
-mongo = MongoClient('mongodb+srv://bigboyzin88:lSktgRehKmm1gzJb@cluster0.blsdxre.mongodb.net/')
+mongo = MongoClient('')
 db = mongo['AI_KHIM']
 
 # เลือก collection "users"
