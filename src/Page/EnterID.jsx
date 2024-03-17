@@ -11,12 +11,13 @@ function EnterID({setUser_ID})  {
     const Headtext =  "กรุณากรอกหมายเลขไอดีของท่าน";  
        
     const [user_ID, setUser_IDLocal] = useState('');  
-    
+    const [bloodPressure, setBloodPressure] = useState('');
    
-    function handleSubmit(event)  {
+    function handleSubmit(event) {
         event.preventDefault();
-     
+        sendBloodPressure(); // Call sendBloodPressure function here
     }
+    
 
       const goToHomeScreen = () => {
         try {
@@ -27,24 +28,50 @@ function EnterID({setUser_ID})  {
         }
     }
     
-      const LogInUser = async () => {
+    const LogInUser = async () => {
         try {
-
-             if (user_ID.length  === 0 ) {
-             alert("Please fill in all required fields!");
-        }    
-             else{
-                 setUser_ID(user_ID);              
-                     navigate(`/ShowInfo?user_ID=${user_ID}`);
-
-        }}
-        catch (error) {
-         
-              console.error("Error during login:", error);
-              alert("An unexpected error occurred during login");
+            if (user_ID.length === 0 || bloodPressure.length === 0) {
+                alert("Please fill in all required fields!");
+            } else {
+                // Save blood pressure data to the database
+                await sendBloodPressure();
+                // Set the user ID and navigate to the ShowInfo page
+                setUser_ID(user_ID);
+                navigate(`/ShowInfo?user_ID=${user_ID}`);
+            }
+        } catch (error) {
+            console.error("Error during login:", error);
+            alert("An unexpected error occurred during login");
         }
-
     };
+
+    const sendBloodPressure = async () => {
+    try {
+        // Make a POST request to the server to save blood pressure data
+        const response = await fetch('http://127.0.0.1:5000/user_bloodpressure', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user_ID: user_ID,
+                blood_pressure: bloodPressure,
+                date: new Date().toISOString()
+            })
+        });
+        if (response.ok) {
+            // Blood pressure data saved successfully
+            console.log("Blood pressure saved successfully");
+            // Optionally, you can navigate to another page or perform other actions
+        } else {
+            // Handle error response
+            console.error("Failed to save blood pressure:", response.statusText);
+        }
+    } catch (error) {
+        console.error("Error saving blood pressure:", error);
+        // Handle the error, e.g., show a notification to the user
+    }
+};
        
     return(
         <>
@@ -65,10 +92,23 @@ function EnterID({setUser_ID})  {
                             style={{width:'615px'}} 
                             placeholder="กรุณากรอกหมายเลข ID" required />
 
+<br />
+                                <input
+                                    type="text"
+                                    className="inputblock"
+                                    value={bloodPressure}
+                                    onChange={(e) => setBloodPressure(e.target.value)}
+                                    style={{ width: '615px' }}
+                                    placeholder="กรุณากรอกความดันโลหิต"
+                                    required
+                                />
+                                <br />
+
+
                        </form>
                        
                         </center>
-                       
+
                         <Button  onClick={LogInUser}>ถัดไป</Button>
                     </div>
                 </div>

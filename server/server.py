@@ -179,21 +179,38 @@ def get_answer():
 
 
 
-@app.route('/user_bloodpressure', methods=['GET'])
-def get_user_bloodpressure():
-    # Accessing the 'admin' collection
-    user_bloodpressure_collection = db['user_bloodpressure']
-    # Retrieving all documents from the collection
-    result = user_bloodpressure_collection.find({})
-    # Building response data
-    user_bloodpressure_data = []
-    for item in result:
-        user_bloodpressure_data.append({
-            'user_ID': item.get('user_ID'),
-            'blood_pressure': item.get('blood_pressure'),
-            'date': item.get('date')
-        })  # Append the entire document
-    return jsonify({'bloodpressure': user_bloodpressure_data}), 200
+@app.route('/user_bloodpressure', methods=['POST'])
+def save_user_bloodpressure():
+    try:
+        # Parse the JSON data from the request body
+        data = request.json
+        user_ID = data.get('user_ID')
+        blood_pressure = data.get('blood_pressure')
+
+        if not user_ID or not blood_pressure:
+            return jsonify({'error': 'Missing user_ID or blood_pressure in request'}), 400
+
+        # Convert user_ID to integer (if needed)
+        user_ID = int(user_ID)
+
+        # Access the 'user_bloodpressure' collection
+        user_bloodpressure_collection = db['user_bloodpressure']
+
+        # Create a document to insert into the collection
+        bloodpressure_data = {
+            'user_ID': user_ID,
+            'blood_pressure': blood_pressure,
+            'date': datetime.utcnow()  # Add the current date/time
+        }
+
+        # Insert the document into the collection
+        result = user_bloodpressure_collection.insert_one(bloodpressure_data)
+
+        # Return a success response
+        return jsonify({'message': 'Blood pressure data saved successfully', 'bloodpressure_id': str(result.inserted_id)}), 201
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 
 #------------------------Login Admin------------------------#  
