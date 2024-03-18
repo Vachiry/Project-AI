@@ -18,9 +18,9 @@ import HeadPage from './Components/HeadPage';
 import Checkpage from './Page/Checkpage';
 import Editpage from './Page/Editpage';
 import '@fortawesome/fontawesome-svg-core/styles.css';
-import Recyclepage from './Page/Recyclepage';
 //import Sidebar from './Components/sidebar/Sidebar';
 import Testdrop from './Page/Testdrop';
+import Adminpage from './Page/Adminpage';
 
 const RouteWithSidebar = ({ element }) => (
   <HeadPage >
@@ -43,7 +43,7 @@ function App() {
                  <Route path="/Editpage" element={<RouteWithSidebar element={<Editpage />} />} />
                  <Route path="/Checkpage" element={<RouteWithSidebar  element={<Checkpage />} />} />
                  <Route path="/Dashboard"  element={<RouteWithSidebar  element={<Dashboard />} />}/>
-                 <Route path="/Recyclepage" element={<RouteWithSidebar  element={<Recyclepage />} />} />
+                 <Route path="/Adminpage" element={<RouteWithSidebar  element={<Adminpage />} />} />
                      
                     <Route exact path="/Login" element={<LoginForm  />} />
                     <Route exact path="/Register" element={<Register/>} />   

@@ -20,14 +20,14 @@
 .Headtext {
     text-align: center;
     margin-top: 120px;
-    font-size: 2.1rem;
+    font-size: 2.3rem;
     font-family: "Anuphan", sans-serif;
     font-weight: 420;
     color: #203526;
     white-space: pre-wrap;
-    line-height: 64px;
+    //line-height: 64px;
     text-shadow: 0px 2px 9px rgb(113, 113, 113);
-    margin-top: 70px;
+ 
 }
 
 .Button {
@@ -39,7 +39,7 @@
 .inputblock {
     
     outline: none;
-    margin-top: 30px;
+    margin-top: 20px;
     border-radius: 12px;
     padding: 8px 30px;
     font-family: "Noto Sans Thai", sans-serif;
@@ -50,14 +50,14 @@
     box-shadow: 0px 4px 8px gray;
     display: flex;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
 }
 
 
 
 .create {
     /* max-width: 400px; */
-    margin: 0 auto;
+   //margin: 0 auto;
     justify-content: center;
     flex-direction: column;
 }
@@ -65,9 +65,181 @@
 .ArrowLeft {
     margin-top: 10px;
     margin-left: 20px;
-    font-size: 28px;
+    font-size: 50px;
     color: #16391E;
     cursor: pointer;
     text-align: left;
 }
 
+
+
+.center {
+    margin-top: 20px;
+}
+
+
+@media  and screen (min-width: 475px) {
+
+    .Headtext {
+        font-size: 7rem; 
+        margin-top: 210px;
+       
+    }
+
+    .Button {
+        margin-top: 20px; 
+       
+    }
+
+    .inputblock {
+
+        margin-top: 60px;
+        
+     
+    }
+}
+
+@media  and screen(min-width: 640px) {
+    .Headtext {
+        font-size: 1rem; 
+        margin-top: 210px;
+       
+    }
+
+    .Button {
+        margin-top: 20px; 
+       
+    }
+
+    .inputblock {
+
+        margin-top: 60px;
+        
+    }
+}
+
+@media  and screen (min-width: 768px) {
+    .Headtext {
+        font-size: 1rem; 
+        margin-top: 210px;
+       
+    }
+
+    .Button {
+        margin-top: 20px; 
+       
+    }
+
+    .inputblock {
+
+        margin-top: 60px;
+        
+    }
+    .ArrowLeft {
+        font-size: 100px;
+    }
+}
+
+@media  and screen(min-width: 968px) {
+    .Headtext {
+        font-size: 1rem; 
+        margin-top: 210px;
+       
+    }
+
+    .Button {
+        margin-top: 20px; 
+       
+    }
+
+    .inputblock {
+
+        margin-top: 60px;
+        
+    }
+    .ArrowLeft {
+        font-size: 100px;
+    }
+}
+
+@media  and screen(min-width: 1024px) {
+    .Headtext {
+        font-size: 1rem; 
+        margin-top: 210px;
+       
+    }
+
+    .Button {
+        margin-top: 20px; 
+       
+    }
+
+    .inputblock {
+
+        margin-top: 60px;
+        
+    }
+    .ArrowLeft {
+        font-size: 100px;
+    }
+    
+}
+
+@media  and screen(min-width: 1280px) {
+    .Headtext {
+        font-size: 1rem; 
+        margin-top: 210px;
+       
+    }
+
+    .Button {
+        margin-top: 20px; 
+       
+    }
+
+    .inputblock {
+
+        margin-top: 60px;
+        
+    }
+    .ArrowLeft {
+        font-size: 100px;
+    }
+    
+}
+
+
+
+/* Media Queries */
+@media  and screen (min-width: 1920px) {
+    /* Styles for screens up to 1920px wide */
+    .Headtext {
+        
+        font-size: 5rem;
+    }
+    .inputblock {
+        margin-top: 70px;
+    }
+    .Button {
+        margin-top: 60px;
+    }
+}
+
+
+
+@media  and screen (min-width: 1980px) {
+    /* Styles for screens up to 1920px wide */
+    .Headtext {
+        
+        font-size: 5rem;
+    }
+    .inputblock {
+        margin-top: 70px;
+    }
+    .Button {
+        margin-top: 60px;
+    }
+    form{
+        width: 640px;
+    }
+}

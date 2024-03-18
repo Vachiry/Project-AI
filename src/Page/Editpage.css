@@ -108,5 +108,14 @@
   width: 100%;
   height: 250px;
 }
-  
+.Column-spacing {
+  padding-right: 10px; /* Adjust the margin-right value as needed */
+}
 
+.buttonExport {
+  border-radius: 10px;
+}
+
+.custom-modal .ant-modal-content {
+  height: 370px; /* Set maximum height to 80% of viewport height */
+}

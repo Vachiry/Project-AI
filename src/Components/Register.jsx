@@ -12,6 +12,7 @@ const Register = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmpassword, setConfirmPassword] = useState('');
+    const [admin_ID, setAdmin_ID] = useState('');
     const handleSubmit = (event) => {
         event.preventDefault();
         // You can add additional logic here if needed
@@ -19,7 +20,7 @@ const Register = () => {
       
     
       const SignupAdmin = () => {
-        if (name.length === 0 || surname.length === 0 || email.length === 0 || password.length === 0 || username.length === 0) {
+        if (name.length === 0 || surname.length === 0 || admin_ID.length === 0 || email.length === 0 || password.length === 0 || username.length === 0) {
           alert("Please fill in all required fields!");
         } else {
           axios
@@ -29,7 +30,8 @@ const Register = () => {
                 email: email,
                 username: username,
                 password: password,
-                confirmpassword: confirmpassword
+                confirmpassword: confirmpassword,
+                admin_ID: admin_ID
             }, { withCredentials: true })
             .then(function (response) {
               console.log(response);
@@ -56,6 +58,15 @@ const Register = () => {
             <div className='wrapper '>
             <form onSubmit={handleSubmit}>
                  <h1>Sign Up</h1>
+                 <div className='input-box'>
+                         <input
+                          type={'admin_ID'}
+                          value={admin_ID}
+                          onChange={(e) => setAdmin_ID(e.target.value)}
+                          placeholder='ID card'
+                          required
+                 />
+                 </div>
                  <div className='input-box'>
                        <input
                         type='name'

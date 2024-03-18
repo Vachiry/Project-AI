@@ -49,6 +49,11 @@
     color: #1E3561;
 
   }
+  .column-cell {
+  
+    padding: 100px; /* Adjust the padding to create the desired gap between columns */
+}
+
   .custom-data-table .rdt_TableRow:hover {
     background-color: #CDDDF0; /* Set background color for hover effect */
   }

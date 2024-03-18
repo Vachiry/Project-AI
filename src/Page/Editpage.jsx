@@ -50,8 +50,9 @@ const Editpage = () => {
     const columns = [
         {
             name: <h1 className="column-name">ID</h1>,
-            selector: (row) => row.question_ID
-            
+            selector: (row) => row.question_ID,
+            width: '200px',
+            sortable: true
         },
         {
             name: <h1 className="column-name">Question</h1>,
@@ -75,7 +76,7 @@ const Editpage = () => {
         });     
         setIsEditing(true);
     };
-
+   
     const handleDelete = async (questionId) => {
         try {
             const response = await fetch(`http://127.0.0.1:5000/questionaire/${questionId}`, {
@@ -87,6 +88,7 @@ const Editpage = () => {
                 setQuestions(questions.filter(question => question.question_ID !== questionId));
                 setfilteredQuestion(filteredQuestion.filter(question => question.question_ID !== questionId));
                 window.alert(`Question with ID ${questionId} deleted successfully.`);
+                window.location.reload();
             } else {
                 const errorData = await response.json();
                 console.error('Failed to delete question:', errorData.error);
@@ -98,37 +100,54 @@ const Editpage = () => {
         }
     };
 
-    const handleSave = async () => {
-        try {
-            const response = await fetch(`http://127.0.0.1:5000/questionaire`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(editedQuestion),
-            });
-            if (response.ok) {
-                const updatedQuestion = await response.json();
-                const updatedQuestions = questions.map(q => {
-                    if (q.question_ID === updatedQuestion.question_ID) {
-                        return updatedQuestion;
-                    } else {
-                        return q;
-                    }
+    const handleSave = async (event) => {
+        event.preventDefault(); // Prevent the default form submission behavior
+        
+        // Check if editedQuestion is not undefined and has both question_ID and question properties
+        if (editedQuestion && editedQuestion.question_ID && editedQuestion.question) {
+            try {
+                const response = await fetch(`http://127.0.0.1:5000/questionaire`,  {
+                    method: 'PUT', // Use PUT method for updating existing question
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(editedQuestion),
                 });
-                setQuestions(updatedQuestions);
-                setfilteredQuestion(updatedQuestions);
-                setIsEditing(false);
-                window.alert('Question updated successfully.');
-            } else {
-                throw new Error('Failed to save edited question');
+    
+                console.log('Response:', response); // Log the response object
+                
+                if (response.ok) {
+                    // Update the state with the new question data
+                    const updatedQuestion = await response.json();
+                    console.log('Updated Question:', updatedQuestion); // Log the updated question data
+                    
+                    // Update the questions array in state with the updated question
+                    const updatedQuestions = questions.map(q => {
+                        if (q.question_ID === updatedQuestion.question_ID) {
+                            return updatedQuestion;
+                        } else {
+                            return q;
+                        }
+                    });
+    
+                    setQuestions(updatedQuestions);
+                    setfilteredQuestion(updatedQuestions);
+                    setIsEditing(false);
+                    window.location.reload();
+                } else {
+                    const errorData = await response.json();
+                    console.error('Failed to save edited question:', errorData.error);
+                    window.alert(`Failed to save edited question: ${errorData.error}`);
+                }
+            } catch (error) {
+                console.error('Error saving edited question:', error);
+                window.alert('Error saving edited question. Please try again.');
             }
-        } catch (error) {
-            console.error('Error saving edited question:', error);
-            window.alert('Error saving edited question. Please try again.');
+        } else {
+            console.error('editedQuestion is not properly defined.');
+            window.alert('Please provide both question ID and question text.');
         }
     };
-
     const handleAddQuestion = () => {
         setIsAdding(true); // Show the modal for adding question
     }
@@ -244,6 +263,7 @@ const Editpage = () => {
                                 question_ID: e.target.value
                             }));
                         }}
+                        placeholder= ' Question ID '
                         style={{ width: '100%', marginBottom: '10px' ,  padding: '10px', }}
                     />
                     <Input 
@@ -254,6 +274,7 @@ const Editpage = () => {
                                 question: e.target.value
                             }));
                         }}
+                        placeholder= ' Question  '
                         style={{
                             width: '100%',
                             padding: '10px', 

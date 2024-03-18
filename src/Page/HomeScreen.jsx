@@ -18,11 +18,10 @@ function HomeScreen() {
       <NavBar/>    
      <div className="main-bg-home">
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div ><h1 className="Homeheadtext">{text}</h1></div>
+        <h1 className="Homeheadtext">{text}</h1>
           <div className="Button">
-             
-               
-                <Button onClick={EnterID}>คลิกที่นี่เพื่อเริ่มต้น</Button>
+                  
+                <Button className='Button' onClick={EnterID}>คลิกที่นี่เพื่อเริ่มต้น</Button>
         
           </div>
         </div>

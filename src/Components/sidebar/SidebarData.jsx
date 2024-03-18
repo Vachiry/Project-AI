@@ -3,7 +3,7 @@ import{AppstoreOutlined,
     CheckCircleOutlined, 
     DeleteOutlined, 
     InfoCircleOutlined, 
-    SettingOutlined, 
+    UserOutlined , 
     LogoutOutlined } from '@ant-design/icons';
 import '../Home.css';
 
@@ -35,9 +35,9 @@ import '../Home.css';
 
       {
             key: '4',
-            icon: <div style={{ color: '#fff' }}><DeleteOutlined/></div>,
-            label: <div className="changeto">Recycle Bin</div>,
-            path:'/Recyclepage'
+            icon: <div style={{ color: '#fff' }}><UserOutlined /></div>,
+            label: <div className="changeto">Admin</div>,
+            path:'/Adminpage'
 
 
        },
@@ -45,6 +45,7 @@ import '../Home.css';
             key: '5',
             icon: <div style={{ color: '#fff' }}><LogoutOutlined /></div>,
             label: <div className="changeto">Logout</div>,
+            path:'/Login'
 
 
   }

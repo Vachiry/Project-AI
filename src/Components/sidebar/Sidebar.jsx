@@ -21,7 +21,7 @@ export default function Sidebar () {
     updatedHoveredItems[index] = false;
     setHoveredItems(updatedHoveredItems);
   };
-
+  
   
   return (
     <>
